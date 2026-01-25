@@ -13,36 +13,25 @@ block main
         th Trạng thái
         th Hành động
     tbody
-      tr
-        td 1
-        td
-          img.rounded(
-            src="https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp"
-            alt="Sản phẩm 1"
-            width="80"
-          )
-        td Sản phẩm 1
-        td
-          strong $100
-        td
-          span.badge.bg-success.rounded-pill Hoạt động
-        td
-          button.btn.btn-warning.btn-sm Sửa
-          button.btn.btn-danger.btn-sm.ms-1 Xóa
+      each item, index in products
+        tr
+          td #{index + 1}
+          td
+            img.rounded(
+              src= item.thumbnail
+              alt= item.title
+              width="80"
+            )
+          td #{item.title}
+          td
+            strong #{item.price}
+          td
+            if(item.status == "active")
+              span.badge.bg-success.rounded-pill Hoạt động
+            else 
+              span.badge.bg-danger.rounded-pill Dừng hoạt động
+          td
+            button.btn.btn-warning.btn-sm Sửa
+            button.btn.btn-danger.btn-sm.ms-1 Xóa
 
-      tr
-        td 2
-        td
-          img.rounded(
-            src="https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/thumbnail.webp"
-            alt="Sản phẩm 2"
-            width="80"
-          )
-        td Sản phẩm 2
-        td
-          strong $150
-        td
-          span.badge.bg-danger.rounded-pill Dừng hoạt động
-        td
-          button.btn.btn-warning.btn-sm Sửa
-          button.btn.btn-danger.btn-sm.ms-1 Xóa
+  
