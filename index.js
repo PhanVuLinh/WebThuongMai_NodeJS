@@ -7,6 +7,8 @@ const port = process.env.PORT;
 app.set('views', './views');
 app.set('view engine', 'pug');
 
+
+//cau hinh filetinhx
 app.use(express.static("public"));
 
 //routes
