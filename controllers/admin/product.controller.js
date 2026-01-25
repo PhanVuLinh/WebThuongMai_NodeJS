@@ -28,6 +28,8 @@ module.exports.index = async (req, res) => {
     const index = filterStatus.findIndex((item) => item.status == "");
     filterStatus[index].class = "active";
   }
+
+
   //vieets cau lechj truy van 
   let find = {
     deleted: false
@@ -42,4 +44,6 @@ module.exports.index = async (req, res) => {
     products: products,
     filterStatus: filterStatus
   });
-};
+}
+
+
