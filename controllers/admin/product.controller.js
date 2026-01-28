@@ -46,7 +46,7 @@ module.exports.index = async (req, res) => {
   });
 }
 
-///GET /change-status/:status/:id
+///Path /change-status/:status/:id
 module.exports.changeStatus = async (req, res) => {
   // console.log(req.params);
   const status = req.params.status;
@@ -55,6 +55,13 @@ module.exports.changeStatus = async (req, res) => {
   await Product.updateOne({ _id: id }, { status: status });
 
   res.redirect(req.get('Referer'));
+};
+
+
+///Path /admin/products/change-multi 
+module.exports.changeMulti = async (req, res) => {
+  console.log(req.body);
+  res.send("ok");
 };
 
 
