@@ -61,7 +61,7 @@ module.exports.changeStatus = async (req, res) => {
   await Product.updateOne({ _id: id }, { status: status });
 
   req.flash("success", "Cập nhật trạng thái thành công!");
-  
+
   res.redirect(req.get('Referer'));
 };
 
@@ -87,6 +87,7 @@ module.exports.changeMulti = async (req, res) => {
           deleteAt: new Date()
         }
       );
+      req.flash("success", `Đã xóa thành công ${ids.length} sản phẩm`);
       break;
     case "change-position":
       console.log(ids);
@@ -100,6 +101,8 @@ module.exports.changeMulti = async (req, res) => {
           }
         );
       }
+      req.flash("success", `Đã đổi vị trí thành công ${ids.length} sản phẩm`);
+
       break;
     default:
       break;
@@ -120,6 +123,7 @@ module.exports.deleteItem = async (req, res) => {
       deletedAt: new Date()
     }
   );
+  req.flash("success", `Đã xóa thành công sản phẩm`);
 
   res.redirect(req.get('Referer'));
 };
