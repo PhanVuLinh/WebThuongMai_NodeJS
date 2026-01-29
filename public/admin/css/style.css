@@ -12,6 +12,7 @@
   font-weight: 700;
   color: #fff;
 }
+
 /* End Header */
 
 /* Body */
@@ -31,6 +32,7 @@
   left: 150px;
   width: calc(100% - 180px);
 }
+
 /* End Body */
 /* Sidebar */
 .body .sider {
@@ -73,3 +75,84 @@
   background: #3f3f3f;
   color: #fff;
 }
+
+/* Show Alert */
+/* ===== Toast Alert ===== */
+[show-alert] {
+  position: fixed;
+  top: 80px;
+  right: -400px;
+  min-width: 280px;
+  max-width: 360px;
+
+  padding: 14px 18px;
+  border-radius: 10px;
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  color: #155724;
+  background: #e6fffa;
+  border-left: 5px solid #38b2ac;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+  opacity: 0;
+  z-index: 9999;
+
+  animation: alert-slide-in 0.5s ease forwards;
+}
+
+/* Khi ẩn */
+[show-alert].alert-hidden {
+  animation: alert-slide-out 0.5s ease forwards;
+}
+
+/* ===== Animation ===== */
+@keyframes alert-slide-in {
+  from {
+    right: -400px;
+    opacity: 0;
+  }
+
+  to {
+    right: 20px;
+    opacity: 1;
+  }
+}
+
+@keyframes alert-slide-out {
+  from {
+    right: 20px;
+    opacity: 1;
+  }
+
+  to {
+    right: -400px;
+    opacity: 0;
+  }
+}
+
+/* ===== Nút X ===== */
+[show-alert] [close-alert] {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+
+  color: #155724;
+  opacity: 0.6;
+
+  transition: all 0.2s ease;
+}
+
+[show-alert] [close-alert]:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* End Show Alert */

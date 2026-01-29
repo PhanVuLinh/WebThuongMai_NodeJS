@@ -39,10 +39,10 @@ module.exports.index = async (req, res) => {
 
   /////
   const products = await Product.find(find)
-    .sort({position: "desc"})
+    .sort({ position: "desc" })
     .limit(objectPagination.limitItem)
     .skip(objectPagination.skip);
-    
+
   res.render("admin/pages/products/index", {
     titlePage: "Trang sản phẩm",
     products: products,
@@ -60,6 +60,8 @@ module.exports.changeStatus = async (req, res) => {
 
   await Product.updateOne({ _id: id }, { status: status });
 
+  req.flash("success", "Cập nhật trạng thái thành công!");
+  
   res.redirect(req.get('Referer'));
 };
 
@@ -72,9 +74,11 @@ module.exports.changeMulti = async (req, res) => {
   switch (type) {
     case "active":
       await Product.updateMany({ _id: { $in: ids } }, { status: "active" });
+      req.flash("success", `Cập nhật trạng thái thành công của ${ids.length} sản phẩm`);
       break;
     case "inactive":
       await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
+      req.flash("success", `Cập nhật trạng thái thành công của ${ids.length} sản phẩm`);
       break;
     case "delete-all":
       await Product.updateMany({ _id: { $in: ids } },
