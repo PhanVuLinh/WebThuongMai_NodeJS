@@ -4,6 +4,8 @@ const Product = require("../../models/product.model");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
+
+///GET /admin/products
 module.exports.index = async (req, res) => {
   //bộ lọc
   const filterStatus = filterStatusHelper(req.query);
@@ -36,7 +38,11 @@ module.exports.index = async (req, res) => {
   );
 
   /////
-  const products = await Product.find(find).limit(objectPagination.limitItem).skip(objectPagination.skip);
+  const products = await Product.find(find)
+    .sort({position: "desc"})
+    .limit(objectPagination.limitItem)
+    .skip(objectPagination.skip);
+    
   res.render("admin/pages/products/index", {
     titlePage: "Trang sản phẩm",
     products: products,
@@ -77,6 +83,19 @@ module.exports.changeMulti = async (req, res) => {
           deleteAt: new Date()
         }
       );
+      break;
+    case "change-position":
+      console.log(ids);
+      for (const item of ids) {
+        let [id, position] = item.split("-");
+        position = parseInt(position);
+
+        await Product.updateOne({ _id: id },
+          {
+            position: position
+          }
+        );
+      }
       break;
     default:
       break;
