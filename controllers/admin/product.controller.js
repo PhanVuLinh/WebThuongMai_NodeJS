@@ -1,11 +1,13 @@
 //call data
 const Product = require("../../models/product.model");
 
+const systemConfig = require("../../config/system");
+
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 
-///GET /admin/products
+///[GET] /admin/products
 module.exports.index = async (req, res) => {
   //bộ lọc
   const filterStatus = filterStatusHelper(req.query);
@@ -52,7 +54,7 @@ module.exports.index = async (req, res) => {
   });
 }
 
-///Path /change-status/:status/:id
+///[PATCH] /admin/products/change-status/:status/:id
 module.exports.changeStatus = async (req, res) => {
   // console.log(req.params);
   const status = req.params.status;
@@ -65,8 +67,7 @@ module.exports.changeStatus = async (req, res) => {
   res.redirect(req.get('Referer'));
 };
 
-
-///Path /admin/products/change-multi 
+///[PATCH] /admin/products/change-multi 
 module.exports.changeMulti = async (req, res) => {
   const type = req.body.type;
   const ids = req.body.ids.split(", ");
@@ -110,8 +111,7 @@ module.exports.changeMulti = async (req, res) => {
   res.redirect(req.get('Referer'));
 };
 
-
-///DELETE /products/delete/:id
+///[DELETE] /admin/products/delete/:id
 module.exports.deleteItem = async (req, res) => {
   const id = req.params.id;
 
@@ -127,3 +127,30 @@ module.exports.deleteItem = async (req, res) => {
 
   res.redirect(req.get('Referer'));
 };
+
+///[GET] /admin/products/create
+module.exports.create = async (req, res) => {
+  res.render("admin/pages/products/create", {
+    titlePage: "Thêm mới sản phẩm",
+  });
+}
+
+///[POST] /admin/products/create
+module.exports.createPost = async (req, res) => {
+  req.body.price = parseInt(req.body.price);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+
+  if (req.body.position == "") {
+    const countProducts = await Product.countDocuments();
+    req.body.position = countProducts + 1;
+  } else {
+    req.body.position = parseInt(req.body.position);
+  }
+  const product = new Product(req.body);
+  await product.save();
+
+  // res.redirect(`${systemConfig.prefixAdmin}/products`);
+  res.redirect(`/admin/products`);
+  
+}
