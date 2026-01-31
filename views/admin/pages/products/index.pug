@@ -6,6 +6,7 @@ include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 block main 
   +alert-success(5000)
+  +alert-error(5000)
   h1.mb-3 Trang danh sách sản phẩm
 
   .card.mb-3
@@ -85,7 +86,11 @@ block main
                     class = "badge bg-danger rounded-pill "
                   ) Dừng hoạt động
               td
-                button.btn.btn-warning.btn-sm Sửa
+                a(
+                  href=`${prefixAdmin}/products/edit/${item.id}`
+                  class= "btn btn-warning btn-sm"
+                ) Sửa
+
                 button.btn.btn-danger.btn-sm.ms-1(
                   button-delete
                   data-id = item.id

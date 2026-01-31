@@ -25,4 +25,13 @@ router.post(
   controller.createPost
 );
 
+router.get('/edit/:id', controller.edit); //Trả về giao diện
+
+router.patch(
+  '/edit/:id',
+  upload.single('thumbnail'),
+  validate.createPost,
+  controller.editPatch
+); 
+
 module.exports = router; 
