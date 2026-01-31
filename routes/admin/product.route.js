@@ -34,4 +34,7 @@ router.patch(
   controller.editPatch
 ); 
 
+router.get('/detail/:id', controller.detail); //Trả về giao diện
+
+
 module.exports = router; 

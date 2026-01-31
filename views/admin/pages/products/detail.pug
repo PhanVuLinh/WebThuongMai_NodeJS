@@ -1,0 +1,50 @@
+extends ../../layouts/default.pug
+
+block main
+  .container.mt-4
+    .product-wrapper
+      if (product.title)
+        h1.product-title #{product.title}
+
+      .product-body
+        .product-left
+          if (product.thumbnail)
+            img.product-image(src=product.thumbnail)
+
+        .product-right
+          if (product.price)
+            div.product-price #{product.price}$
+
+          if (product.discountPercentage)
+            div.product-discount
+              | Giảm giá:
+              span #{product.discountPercentage}%
+
+          if (product.stock)
+            div.product-info
+              span.label Còn lại:
+              span.value #{product.stock}
+
+          if (product.position)
+            div.product-info
+              span.label Vị trí:
+              span.value #{product.position}
+
+          if (product.status)
+            div.product-info
+              span.label Trạng thái:
+              if (product.status === "active")
+                span.badge.bg-success Hoạt động
+              else
+                span.badge.bg-danger Dừng hoạt động
+
+      if (product.description)
+        .product-description
+          h4 Mô tả sản phẩm
+          p #{product.description}
+
+      a(
+        href=`${prefixAdmin}/products/edit/${product.id}`
+        class="btn btn-warning "
+      ) Chỉnh sửa
+  script(src="/admin/js/product.js")
