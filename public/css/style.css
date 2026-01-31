@@ -9,7 +9,7 @@
   max-width: 100%;
 }
 
-.header .inner-menu > ul {
+.header .inner-menu>ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -19,9 +19,10 @@
   flex-wrap: wrap;
 }
 
-.header .inner-menu > ul > li {
+.header .inner-menu>ul>li {
   margin-left: 20px;
 }
+
 /* End Header */
 
 /* Footer */
@@ -31,6 +32,7 @@
   text-align: center;
   padding: 10px;
 }
+
 /* End Footer */
 
 
@@ -99,3 +101,4 @@
   font-weight: 600;
   border-radius: 20px;
 }
+
