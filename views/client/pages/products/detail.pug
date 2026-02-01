@@ -1,0 +1,91 @@
+extends ../../layouts/default.pug
+
+block main
+  .container.my-5
+    .row.g-5.align-items-start
+      // ========= IMAGE =========
+      .col-lg-6
+        .card.border-0.shadow-lg.rounded-4
+          .position-relative
+            if product.discountPercentage > 0
+              span.badge.bg-danger.position-absolute.top-0.start-0.m-3
+                | -#{product.discountPercentage}%
+            img.rounded-4.w-100(
+              src=product.thumbnail,
+              alt=product.title,
+              style="height: 460px; object-fit: cover;"
+            )
+
+      // ========= CONTENT =========
+      .col-lg-6
+        span.text-uppercase.text-primary.fw-semibold.small
+          | Sản phẩm chính hãng
+
+        h1.fw-bold.mt-2.mb-3= product.title
+
+        // PRICE
+        .d-flex.align-items-end.gap-3.mb-3
+          if product.discountPercentage > 0
+            - const sale = product.price - (product.price * product.discountPercentage / 100)
+            span.display-6.text-danger.fw-bold $#{sale.toFixed(2)}
+            span.fs-5.text-muted.text-decoration-line-through $#{product.price}
+          else
+            span.display-6.text-danger.fw-bold $#{product.price}
+
+        // STOCK
+        if product.stock > 0
+          span.badge.rounded-pill.bg-success.mb-3
+            i.bi.bi-check-circle.me-1
+            | Còn hàng
+        else
+          span.badge.rounded-pill.bg-secondary.mb-3
+            i.bi.bi-x-circle.me-1
+            | Hết hàng
+
+        // DESCRIPTION
+        p.text-muted.fs-5.mt-4= product.description
+
+        // QUANTITY
+        .d-flex.align-items-center.gap-3.mt-4
+          span.fw-semibold Số lượng:
+          .input-group(style="width: 140px")
+            button.btn.btn-outline-secondary(type="button") −
+            input.form-control.text-center(type="text", value="1")
+            button.btn.btn-outline-secondary(type="button") +
+
+        // ACTION BUTTONS
+        .d-flex.flex-wrap.gap-3.mt-4
+          button.btn.btn-primary.btn-lg.px-4.shadow
+            i.bi.bi-cart-plus.me-2
+            | Thêm vào giỏ hàng
+
+          button.btn.btn-dark.btn-lg.px-4
+            i.bi.bi-lightning-fill.me-2
+            | Mua ngay
+
+    // ========= TABS =========
+    .row.mt-5
+      .col-12
+        .card.border-0.shadow-sm.rounded-4
+          .card-body
+            ul.nav.nav-pills.mb-4
+              li.nav-item
+                a.nav-link.active(href="#desc", data-bs-toggle="pill") Mô tả
+              li.nav-item
+                a.nav-link(href="#info", data-bs-toggle="pill") Thông tin
+              li.nav-item
+                a.nav-link(href="#policy", data-bs-toggle="pill") Chính sách
+
+            .tab-content
+              .tab-pane.fade.show.active#desc
+                p.text-muted.fs-5= product.description
+
+              .tab-pane.fade#info
+                ul.list-group.list-group-flush
+                  li.list-group-item
+                    strong Mã sản phẩm:
+                    |  #{product._id}
+
+              .tab-pane.fade#policy
+                p.text-muted
+                  | Đổi trả trong vòng 7 ngày. Bảo hành chính hãng 12 tháng.

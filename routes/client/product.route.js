@@ -5,4 +5,6 @@ const controller = require("../../controllers/client/product.controller");
 
 router.get('/', controller.index);
 
+router.get('/:slug', controller.detail); //chi tieets sanr pham
+
 module.exports = router;
