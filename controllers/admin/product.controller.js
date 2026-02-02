@@ -39,9 +39,18 @@ module.exports.index = async (req, res) => {
     countProducts
   );
 
+  //sort
+  let sort = {};
+  if (req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue; //Vif req.query.sortKey  là 1 string nên khi truyền vào là phải dùng dấu ngoặc vuông [req.query.sortKey]
+  } else {
+    sort.position = "desc"
+  }
+  //END sort
+
   /////
   const products = await Product.find(find)
-    .sort({ position: "desc" })
+    .sort(sort)
     .limit(objectPagination.limitItem)
     .skip(objectPagination.skip);
 
