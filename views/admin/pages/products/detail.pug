@@ -41,7 +41,7 @@ block main
       if (product.description)
         .product-description
           h4 Mô tả sản phẩm
-          p #{product.description}
+          p !{product.description}
 
       a(
         href=`${prefixAdmin}/products/edit/${product.id}`
