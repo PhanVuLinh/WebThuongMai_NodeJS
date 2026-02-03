@@ -262,9 +262,8 @@
 
 /* Badge */
 .badge {
-  padding: 6px 14px;
-  font-size: 14px;
-  border-radius: 20px;
+  border: none;
+  padding: 5px 10px
 }
 
 /* Description */
