@@ -61,7 +61,7 @@ module.exports.index = async (req, res) => {
     const user = await Account.findOne({
       _id: product.createdBy.account_id
     });
-    if(user) {
+    if (user) {
       product.accountFullName = user.fullName;
     }
   }
@@ -106,7 +106,10 @@ module.exports.changeMulti = async (req, res) => {
       await Product.updateMany({ _id: { $in: ids } },
         {
           deleted: true,
-          deleteAt: new Date()
+          deletedBy: {
+            account_id: res.locals.user.id,
+            deletedAt: new Date()
+          }
         }
       );
       req.flash("success", `Đã xóa thành công ${ids.length} sản phẩm`);
@@ -141,7 +144,10 @@ module.exports.deleteItem = async (req, res) => {
     { _id: id },
     {
       deleted: true,
-      deletedAt: new Date()
+      deletedBy: {
+        account_id: res.locals.user.id,
+        deletedAt: new Date()
+      }
     }
   );
   req.flash("success", `Đã xóa thành công sản phẩm`);
