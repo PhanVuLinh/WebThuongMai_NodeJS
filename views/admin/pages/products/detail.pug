@@ -42,9 +42,9 @@ block main
         .product-description
           h4 Mô tả sản phẩm
           p !{product.description}
-
-      a(
-        href=`${prefixAdmin}/products/edit/${product.id}`
-        class="btn btn-warning "
-      ) Chỉnh sửa
+      if(role.permissions.includes("products_edit"))
+        a(
+          href=`${prefixAdmin}/products/edit/${product.id}`
+          class="btn btn-warning "
+        ) Chỉnh sửa
   script(src="/admin/js/product.js")

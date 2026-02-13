@@ -2,130 +2,131 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 
 block main
-  h1(class="mb-4") Chỉnh sửa tài khoản
+  if(role.permissions.includes("accounts_edit"))
+    h1(class="mb-4") Chỉnh sửa tài khoản
 
-  +alert-error(5000)
-  +alert-success(5000)
+    +alert-error(5000)
+    +alert-success(5000)
 
-  if(roles)
-    form(
-      action=`${prefixAdmin}/accounts/edit/${data.id}?_method=PATCH`
-      method="POST"
-      enctype="multipart/form-data"
-    )
-      // Họ tên
-      div(class="mb-3")
-        label(for="fullName") Họ tên *
-        input(
-          type="text"
-          class="form-control"
-          id="fullName"
-          name="fullName"
-          required
-          value= data.fullName
-        )
+    if(roles)
+      form(
+        action=`${prefixAdmin}/accounts/edit/${data.id}?_method=PATCH`
+        method="POST"
+        enctype="multipart/form-data"
+      )
+        // Họ tên
+        div(class="mb-3")
+          label(for="fullName") Họ tên *
+          input(
+            type="text"
+            class="form-control"
+            id="fullName"
+            name="fullName"
+            required
+            value= data.fullName
+          )
 
-      // Email
-      div(class="mb-3")
-        label(for="email") Email *
-        input(
-          type="email"
-          class="form-control"
-          id="email"
-          name="email"
-          required
-          value= data.email
-        )
+        // Email
+        div(class="mb-3")
+          label(for="email") Email *
+          input(
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            required
+            value= data.email
+          )
 
-      // Mật khẩu
-      div(class="mb-3")
-        label(for="password") Mật khẩu *
-        input(
-          type="password"
-          class="form-control"
-          id="password"
-          name="password"
-        )
+        // Mật khẩu
+        div(class="mb-3")
+          label(for="password") Mật khẩu *
+          input(
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+          )
 
-      // Số điện thoại
-      div(class="mb-3")
-        label(for="phone") Số điện thoại
-        input(
-          type="text"
-          class="form-control"
-          id="phone"
-          name="phone"
-          value=data.phone
-        )
+        // Số điện thoại
+        div(class="mb-3")
+          label(for="phone") Số điện thoại
+          input(
+            type="text"
+            class="form-control"
+            id="phone"
+            name="phone"
+            value=data.phone
+          )
 
-      // Ảnh đại diện
-      div(class="mb-3")
-        label(for="avatar") Ảnh đại diện
-        input(
-          type="file"
-          class="form-control"
-          id="avatar"
-          name="avatar"
-          accept="image/*"
-          upload-image-input
-        )
-        img(
-          src=data.avatar
-          class="image-preview"
-          upload-image-preview
-        )
+        // Ảnh đại diện
+        div(class="mb-3")
+          label(for="avatar") Ảnh đại diện
+          input(
+            type="file"
+            class="form-control"
+            id="avatar"
+            name="avatar"
+            accept="image/*"
+            upload-image-input
+          )
+          img(
+            src=data.avatar
+            class="image-preview"
+            upload-image-preview
+          )
 
-      // Phân quyền
-      div(class="mb-3")
-        label(for="role_id") Phân quyền
-        select(
-          name="role_id"
-          id="role_id"
-          class="form-control"
-        )
-          option(disabled selected) -- Chọn --
-          each item in roles
-            option(
-              value=item._id
-              selected=(item.id == data.role_id ? true : false)
-            ) #{item.title}
+        // Phân quyền
+        div(class="mb-3")
+          label(for="role_id") Phân quyền
+          select(
+            name="role_id"
+            id="role_id"
+            class="form-control"
+          )
+            option(disabled selected) -- Chọn --
+            each item in roles
+              option(
+                value=item._id
+                selected=(item.id == data.role_id ? true : false)
+              ) #{item.title}
 
-      // Trạng thái
-      div(class="mb-3 form-check form-check-inline")
-        input(
-          type="radio"
-          class="form-check-input"
-          id="statusActive"
-          name="status"
-          value="active"
-          checked=(data.status=="active" ? true : false)
-        )
-        label(
-          for="statusActive"
-          class="form-check-label"
-        ) Hoạt động
+        // Trạng thái
+        div(class="mb-3 form-check form-check-inline")
+          input(
+            type="radio"
+            class="form-check-input"
+            id="statusActive"
+            name="status"
+            value="active"
+            checked=(data.status=="active" ? true : false)
+          )
+          label(
+            for="statusActive"
+            class="form-check-label"
+          ) Hoạt động
 
-      div(class="mb-3 form-check form-check-inline")
-        input(
-          type="radio"
-          class="form-check-input"
-          id="statusInActive"
-          name="status"
-          value="inactive"
-          checked=(data.status=="active" ? true : false)
-        )
-        label(
-          for="statusInActive"
-          class="form-check-label"
-        ) Dừng hoạt động
+        div(class="mb-3 form-check form-check-inline")
+          input(
+            type="radio"
+            class="form-check-input"
+            id="statusInActive"
+            name="status"
+            value="inactive"
+            checked=(data.status=="active" ? true : false)
+          )
+          label(
+            for="statusInActive"
+            class="form-check-label"
+          ) Dừng hoạt động
 
-      // Submit
-      div(class="mb-3")
-        button(
-          type="submit"
-          class="btn btn-primary"
-        ) Cập nhật
-  else 
-    p Vui lòng tạo nhóm quyền trước khi cập nhật 
-    p 
-      a(href=`${prefixAdmin}/roles/create` class="btn btn-secondary") Tạo nhóm quyền 
+        // Submit
+        div(class="mb-3")
+          button(
+            type="submit"
+            class="btn btn-primary"
+          ) Cập nhật
+    else 
+      p Vui lòng tạo nhóm quyền trước khi cập nhật 
+      p 
+        a(href=`${prefixAdmin}/roles/create` class="btn btn-secondary") Tạo nhóm quyền 
