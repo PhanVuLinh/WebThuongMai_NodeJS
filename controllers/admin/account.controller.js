@@ -44,7 +44,9 @@ module.exports.createPost = async (req, res) => {
     res.redirect(req.get('Referer'));
   } else {
     req.body.password = md5(req.body.password);
-
+    if (req.file) {
+      req.body.avatar = `/uploads/${req.file.filename}`;
+    }
     const records = new Account(req.body);
     await records.save();
 
@@ -54,11 +56,11 @@ module.exports.createPost = async (req, res) => {
 
 //[GET] /admin/edit/:id
 module.exports.edit = async (req, res) => {
-  let find = {
-    _id: req.params.id,
-    deleted: false
-  }
   try {
+    let find = {
+      _id: req.params.id,
+      deleted: false
+    }
     const data = await Account.findOne(find);
 
     const roles = await Role.find({
@@ -78,7 +80,7 @@ module.exports.edit = async (req, res) => {
 //[PATCH] /admin/edit/:id
 module.exports.editPatch = async (req, res) => {
   const emailExist = await Account.findOne({
-    _id: {$ne: req.params.id}, ///$ne == not equal
+    _id: { $ne: req.params.id }, ///$ne == not equal
     email: req.body.email,
     deleted: false
   });
@@ -86,12 +88,16 @@ module.exports.editPatch = async (req, res) => {
     req.flash("error", `Email ${req.body.email} đã tồn tại`);
     res.redirect(req.get('Referer'));
   } else {
-
     if (req.body.password) {
       req.body.password = md5(req.body.password);
     } else {
       delete req.body.password;
     }
+
+    if (req.file) {
+      req.body.avatar = `/uploads/${req.file.filename}`;
+    }
+
     await Account.updateOne({ _id: req.params.id }, req.body);
     req.flash("success", "Cập nhật thành công!");
   }

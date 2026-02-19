@@ -1,0 +1,89 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+  .container.mt-5
+    .row.justify-content-center
+      .col-md-8
+        .card.shadow-sm
+          .card-body
+
+            h3.mb-4.text-center Cập nhật thông tin cá nhân
+
+            +alert-success(5000)
+            +alert-error(5000)
+
+            form(
+              action=`${prefixAdmin}/my-account/edit?_method=PATCH`
+              method="POST"
+              enctype="multipart/form-data"
+            )
+
+              // Họ tên
+              .mb-3
+                label.form-label(for="fullName") Họ tên *
+                input.form-control(
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  required
+                  value=user.fullName
+                )
+
+              // Email
+              .mb-3
+                label.form-label(for="email") Email *
+                input.form-control(
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  value=user.email
+                )
+
+              // Mật khẩu (nếu muốn đổi)
+              .mb-3
+                label.form-label(for="password") Mật khẩu mới
+                input.form-control(
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Nhập nếu muốn thay đổi"
+                )
+
+              // Số điện thoại
+              .mb-3
+                label.form-label(for="phone") Số điện thoại
+                input.form-control(
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  value=user.phone
+                )
+
+              // Avatar
+              .mb-4
+                div(
+                  class="form-group"
+                  upload-image
+                )
+                  label.form-label Avatar
+                  input.form-control(
+                    type="file"
+                    class="form-control-file"
+                    id="avatar"
+                    name="avatar"
+                    accept="image/*"
+                    upload-image-input
+                  )
+                  img(
+                    src=user.avatar
+                    class="image-preview"
+                    upload-image-preview 
+                  )
+
+              div(class="form-control")
+                button(
+                  type="submit"
+                  class="btn btn-primary"
+                ) Cập nhật

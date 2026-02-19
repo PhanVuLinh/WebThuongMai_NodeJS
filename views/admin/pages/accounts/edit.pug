@@ -60,11 +60,11 @@ block main
           )
 
         // Ảnh đại diện
-        div(class="mb-3")
+        div(class="form-group mb-3" upload-image)
           label(for="avatar") Ảnh đại diện
           input(
             type="file"
-            class="form-control"
+            class="form-control-file"
             id="avatar"
             name="avatar"
             accept="image/*"
@@ -72,8 +72,8 @@ block main
           )
           img(
             src=data.avatar
-            class="image-preview"
             upload-image-preview
+            class="image-preview"
           )
 
         // Phân quyền
@@ -113,7 +113,7 @@ block main
             id="statusInActive"
             name="status"
             value="inactive"
-            checked=(data.status=="active" ? true : false)
+            checked=(data.status=="inactive" ? true : false)
           )
           label(
             for="statusInActive"
