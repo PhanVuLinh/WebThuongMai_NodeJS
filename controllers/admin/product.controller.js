@@ -98,6 +98,7 @@ module.exports.changeStatus = async (req, res) => {
   }
 
   await Product.updateOne({ _id: id }, {
+    status: status,
     $push: { updatedBy: updatedBy }
   });
 
