@@ -237,3 +237,15 @@
   font-weight: 600;
   border-radius: 4px;
 }
+/*homnet*/
+.section-products-featured {
+  padding: 60px 0;
+}
+
+.featured {
+  background: #f8f9fa;
+}
+
+.new-products {
+  background: linear-gradient(to right, #ffffff, #f3f7ff);
+}
