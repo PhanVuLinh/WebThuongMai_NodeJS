@@ -1,0 +1,23 @@
+mixin product-item(item)
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.shadow-sm
+          .product-image
+            img(src=item.thumbnail, alt=item.title)
+            if(item.featured == "1")
+              .inner-featured Nổi bật
+            if item.discountPercentage > 0
+              span.badge-discount -#{item.discountPercentage}%
+
+          .product-body
+            h5.product-title
+              a(href=`/products/${item.slug}`) #{item.title}
+
+            .product-price
+              if item.priceNew
+                span.price-new $#{item.priceNew}
+                span.price-old $#{item.price}
+              else
+                span.price-new $#{item.price}
+
+            a.btn.btn-primary.btn-sm.w-100.mt-3(href=`/products/${item.slug}`)
+                | Xem chi tiết
