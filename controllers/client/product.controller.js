@@ -18,16 +18,26 @@ module.exports.index = async (req, res) => {
   });
 };
 
-// [GET] /products/:slug
+// [GET] /products/detail/:slugProducts
 module.exports.detail = async (req, res) => {
   try {
-    const slug = req.params.slug;
+    const slug = req.params.slugProduct;
     const find = {
       deleted: false,
       status: "active",
       slug: slug
     };
     const product = await Product.findOne(find);
+    if (product.product_category_id) {
+      const category = await ProductCategory.findOne({
+        _id: product.product_category_id,
+        status: "active",
+        deleted: false
+      });
+
+      product.category = category;
+    }
+    product.priceNew = productsHelper.priceNewProduct(product);
 
     res.render("client/pages/products/detail", {
       titlePage: product.title,

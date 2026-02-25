@@ -21,17 +21,24 @@ block main
         span.text-uppercase.text-primary.fw-semibold.small
           | Sản phẩm chính hãng
 
+        // CATEGORY
+        if product.category
+          div.mb-2
+            span.text-muted Danh mục: 
+            a.text-decoration-none.fw-semibold(
+              href=`/products/${product.category.slug}`
+            ) #{product.category.title}  
+
         h1.fw-bold.mt-2.mb-3= product.title
 
         // PRICE
-        .d-flex.align-items-end.gap-3.mb-3
-          if product.discountPercentage > 0
-            - const sale = product.price - (product.price * product.discountPercentage / 100)
-            span.display-6.text-danger.fw-bold $#{sale.toFixed(2)}
+        .d-flex.align-items-end.gap-3.mb-3 
+          if product.priceNew
+            span.display-6.text-danger.fw-bold $#{product.priceNew}
             span.fs-5.text-muted.text-decoration-line-through $#{product.price}
           else
             span.display-6.text-danger.fw-bold $#{product.price}
-
+            
         // STOCK
         if product.stock > 0
           span.badge.rounded-pill.bg-success.mb-3
@@ -42,26 +49,30 @@ block main
             i.bi.bi-x-circle.me-1
             | Hết hàng
 
-        // DESCRIPTION
-        p.text-muted.fs-5.mt-4= product.description
+        //- // DESCRIPTION
+        //- p.text-muted.fs-5.mt-4= product.description
 
-        // QUANTITY
-        .d-flex.align-items-center.gap-3.mt-4
-          span.fw-semibold Số lượng:
-          .input-group(style="width: 140px")
-            button.btn.btn-outline-secondary(type="button") −
-            input.form-control.text-center(type="text", value="1")
-            button.btn.btn-outline-secondary(type="button") +
+        // ===== FORM ADD TO CART =====
+        form.mt-4(
+          action=`/cart/add/${product._id}`
+          method="POST"
+        )
+          .d-flex.align-items-center.gap-3.mb-3
+            span.fw-semibold Số lượng:
 
-        // ACTION BUTTONS
-        .d-flex.flex-wrap.gap-3.mt-4
-          button.btn.btn-primary.btn-lg.px-4.shadow
+            .input-group(style="width: 140px")
+              input.form-control.text-center(
+                id="quantityInput"
+                type="number"
+                name="quantity"
+                value="1"
+                min="1"
+                max=product.stock
+              )
+
+          button.btn.btn-success.btn-lg.w-100.shadow(type="submit")
             i.bi.bi-cart-plus.me-2
             | Thêm vào giỏ hàng
-
-          button.btn.btn-dark.btn-lg.px-4
-            i.bi.bi-lightning-fill.me-2
-            | Mua ngay
 
     // ========= TABS =========
     .row.mt-5
@@ -78,7 +89,7 @@ block main
 
             .tab-content
               .tab-pane.fade.show.active#desc
-                p.text-muted.fs-5= product.description
+                p.text-muted.fs-5 !{product.description}
 
               .tab-pane.fade#info
                 ul.list-group.list-group-flush

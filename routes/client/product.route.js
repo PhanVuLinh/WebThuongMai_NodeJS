@@ -7,6 +7,6 @@ router.get('/', controller.index);
 
 router.get('/:slugCategory', controller.category);
 
-// router.get('/:slug', controller.detail); //chi tieets sanr pham
+router.get('/detail/:slugProduct', controller.detail); //chi tieets sanr pham
 
 module.exports = router;
