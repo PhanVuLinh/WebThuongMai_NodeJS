@@ -1,21 +1,37 @@
 include ../mixins/sub-menu.pug
 
-header.header 
-  .container  
-    .row.align-items-center    
-      .col-3  
-        .inner-logo 
-          a(href="/") 
-            img(src="/images/logo.jpg", alt="logo",height="70px")
+header.header.shadow-sm.bg-white
+  .container
+    .row.align-items-center.py-2
 
+      // LOGO
+      .col-lg-3.col-md-3.col-6
+        .inner-logo
+          a.d-flex.align-items-center(href="/")
+            img(src="/images/logo.jpg", alt="logo", height="60")
+            span.ms-2.fw-bold.text-dark ShopName
 
-      .col-9 
-        .inner-menu 
-          ul 
-            li  
-              a(href="/") Trang chủ
-            li(class="sub-menu")
+      // SEARCH
+      .col-lg-5.d-none.d-lg-block
+        form(action="/search" method="GET")
+          .input-group
+            input.form-control.rounded-start(
+              type="text"
+              placeholder="Nhập từ khóa sản phẩm..."
+              name="keyword"
+            )
+            button.btn.btn-primary.rounded-end(type="submit")
+              i.bi.bi-search
+              |  Tìm
+
+      // MENU
+      .col-lg-4.col-md-9.col-6
+        nav.inner-menu
+          ul.nav.justify-content-end.align-items-center.mb-0
+            li.nav-item
+              a.nav-link.fw-semibold(href="/") Trang chủ
+
+            li.nav-item.sub-menu
               - const pathProduct = "/products"
-              a(href="/products") Sản phẩm 
+              a.nav-link.fw-semibold(href=pathProduct) Sản phẩm
               +sub-menu(layoutProductsCategory, pathProduct)
-              

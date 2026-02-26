@@ -1,14 +1,24 @@
 /* Header */
 .header {
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
 .header .inner-logo img {
-  max-height: 50px;
-  max-width: 100%;
+  max-height: 55px;
+  transition: transform 0.3s ease;
 }
 
+.header .inner-logo img:hover {
+  transform: scale(1.05);
+}
+
+/* Menu */
 .header .inner-menu>ul {
   list-style: none;
   padding: 0;
@@ -16,11 +26,22 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex-wrap: wrap;
 }
 
 .header .inner-menu>ul>li {
-  margin-left: 20px;
+  margin-left: 25px;
+  position: relative;
+}
+
+.header .inner-menu>ul>li>a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.header .inner-menu>ul>li>a:hover {
+  color: #0d6efd;
 }
 
 /* End Header */
@@ -105,41 +126,74 @@
 /* sub-menu */
 .sub-menu {
   position: relative;
-  z-index: 999;
 }
 
+/* reset tất cả ul trong submenu */
 .sub-menu ul {
-  position: absolute;
-  right: 0;
-  top: 100%;
   list-style: none;
   padding: 0;
   margin: 0;
-  background: #eae9e9;
-  min-width: 180px;
-  display: none;
 }
 
-.sub-menu ul li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+/* cấp 1 */
+.sub-menu>ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  min-width: 220px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all 0.2s ease;
+  z-index: 999;
 }
 
 .sub-menu:hover>ul {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
+/* item */
 .sub-menu ul li {
   position: relative;
 }
 
+.sub-menu ul li a {
+  display: block;
+  padding: 10px 18px;
+  text-decoration: none;
+  color: #333;
+  transition: 0.2s;
+}
+
+.sub-menu ul li a:hover {
+  background: #f5f7fa;
+  color: #0d6efd;
+}
+
+/* cấp 2 */
 .sub-menu ul li ul {
-  right: 100%;
+  position: absolute;
   top: 0;
+  right:100%;
+  background: #fff;
+  min-width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s ease;
 }
 
 .sub-menu ul li:hover>ul {
-  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 
 /* End sub-menu */
@@ -237,6 +291,7 @@
   font-weight: 600;
   border-radius: 4px;
 }
+
 /*homnet*/
 .section-products-featured {
   padding: 60px 0;
