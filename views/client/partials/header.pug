@@ -8,17 +8,21 @@ header.header.shadow-sm.bg-white
       .col-lg-3.col-md-3.col-6
         .inner-logo
           a.d-flex.align-items-center(href="/")
-            img(src="/images/logo.jpg", alt="logo", height="60")
-            span.ms-2.fw-bold.text-dark ShopName
+            img(src="/images/logo2.png", alt="logo", height="60")
+            span.ms-2.fw-bold.text-dark Shop NODEJS
 
       // SEARCH
       .col-lg-5.d-none.d-lg-block
-        form(action="/search" method="GET")
+        form(
+          action="/search" 
+          method="GET"
+        )
           .input-group
             input.form-control.rounded-start(
               type="text"
               placeholder="Nhập từ khóa sản phẩm..."
               name="keyword"
+              value= keyword
             )
             button.btn.btn-primary.rounded-end(type="submit")
               i.bi.bi-search
