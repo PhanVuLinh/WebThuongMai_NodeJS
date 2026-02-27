@@ -76,7 +76,7 @@ module.exports.addPost = async (req, res) => {
   res.redirect(req.get('Referer'));
 }
 
-//[GET] /delete/:productId
+//[GET] /cart/delete/:productId
 module.exports.delete = async (req, res) => {
   const cartId = req.cookies.cartId;
   const productId = req.params.productId;
@@ -92,5 +92,25 @@ module.exports.delete = async (req, res) => {
   }) //xóa phầng tử khỏi object
 
   req.flash("success", "Đã xóa thành công sản phẩm khỏi giỏ hàng");
+  res.redirect(req.get('Referer'));
+}
+
+//[GET] /cart/update/:productId/:quantity
+module.exports.updateQuantity = async (req, res) => {
+  const cartId = req.cookies.cartId;
+  const productId = req.params.productId;
+  const quantity = req.params.quantity;
+
+  await Cart.updateOne(
+    {
+      _id: cartId,
+      "products.product_id": productId
+    },
+    {
+      $set: { "products.$.quantity": quantity } 
+    }
+  );
+
+  req.flash("success", "Cập nhật thành công sản phẩm trong giỏ hàng");
   res.redirect(req.get('Referer'));
 }
