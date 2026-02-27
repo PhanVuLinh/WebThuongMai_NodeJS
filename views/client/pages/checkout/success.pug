@@ -1,0 +1,59 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-5
+    .row
+      .col-12
+        +box-head("Đặt hàng thành công")
+
+    .row.mt-5.justify-content-center
+      .col-lg-7
+        .card.border-0.shadow-lg.rounded-4
+          .card-body.p-5.text-center
+
+            // Icon success
+            .mb-4
+              .d-inline-flex.align-items-center.justify-content-center.rounded-circle.bg-success.bg-opacity-10(
+                style="width:120px;height:120px;"
+              )
+                i.bi.bi-check-circle-fill.text-success(
+                  style="font-size:70px;"
+                )
+
+            h2.fw-bold.text-success.mb-3
+              | Cảm ơn bạn đã đặt hàng!
+
+            p.text-muted.fs-5.mb-4
+              | Đơn hàng của bạn đã được ghi nhận thành công.
+              br
+              | Chúng tôi sẽ xử lý và giao hàng trong thời gian sớm nhất.
+
+            if orderCode
+              .alert.alert-success.border-0.shadow-sm.py-3
+                span.fw-semibold Mã đơn hàng của bạn:
+                span.fw-bold.text-primary.ms-2 #{orderCode}
+
+            hr.my-4
+
+            p.text-muted.mb-4
+              | Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ
+              br
+              strong Hotline:
+              |  0123 456 789
+              br
+              strong Email:
+              |  support@yourshop.com
+
+            .d-flex.justify-content-center.gap-3.mt-4
+              a.btn.btn-primary.btn-lg.px-4.rounded-3.shadow-sm(
+                href="/"
+              )
+                i.bi.bi-house-door.me-2
+                | Trang chủ
+
+              a.btn.btn-outline-success.btn-lg.px-4.rounded-3.shadow-sm(
+                href="/products"
+              )
+                i.bi.bi-bag-check.me-2
+                | Tiếp tục mua sắm

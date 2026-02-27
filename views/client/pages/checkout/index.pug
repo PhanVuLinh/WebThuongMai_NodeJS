@@ -1,0 +1,103 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-success(5000)
+  +alert-error(5000)
+
+  .container.my-3
+    .row
+      .col-12
+        +box-head("Đặt hàng")
+
+    .row.mt-4
+      .col-12
+        .table-responsive
+          table.table.align-middle.table-hover.shadow-sm
+            thead.table-light
+              tr.text-right
+                th STT
+                th Ảnh
+                th Tên sản phẩm
+                th Giá
+                th Số lượng
+                th Tổng tiền
+            tbody
+              each item, index in cartDetail.products
+                tr.text-right
+                  td.fw-semibold #{index + 1}
+
+                  td
+                    img.rounded.shadow-sm(
+                      src=item.productInfo.thumbnail
+                      alt=item.productInfo.title
+                      width="70"
+                    )
+
+                  td.text-start
+                    | #{item.productInfo.title}
+
+                  td.text-primary.fw-bold
+                    | #{item.productInfo.priceNew.toLocaleString()}$
+
+                  td #{item.quantity}
+
+                  td.text-danger.fw-bold
+                    | #{item.totalPrice.toLocaleString()}$
+
+    // ===== Tổng tiền + Thanh toán =====
+    .row.mt-4
+      .col-12.text-end
+        hr
+        h4.fw-bold
+          | Tổng đơn hàng:
+          span.text-danger.ms-2
+            | #{cartDetail.totalPrice.toLocaleString()}$
+    
+    if(cartDetail.products.length > 0)      
+      // ===== Form đặt hàng =====
+      .row.mt-5
+        .col-lg-6.offset-lg-6
+          .card.shadow-sm.border-0
+            .card-body.p-4
+              h5.fw-bold.mb-4.text-center Thông tin giao hàng
+
+              form(
+                action="/checkout/order"
+                method="POST"
+              )
+
+                .mb-3
+                  label.form-label.fw-semibold(for="fullName") Họ và tên
+                  input.form-control.form-control-lg(
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    placeholder="Nhập họ tên của bạn"
+                    required
+                  )
+
+                .mb-3
+                  label.form-label.fw-semibold(for="phone") Số điện thoại
+                  input.form-control.form-control-lg(
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    placeholder="Nhập số điện thoại"
+                    required
+                  )
+
+                .mb-4
+                  label.form-label.fw-semibold(for="address") Địa chỉ giao hàng
+                  input.form-control.form-control-lg(
+                    type="text"
+                    id="address"
+                    name="address"
+                    placeholder="Nhập địa chỉ nhận hàng"
+                    required
+                  )
+
+                button.btn.btn-success.btn-lg.w-100.shadow-sm(type="submit")
+                  i.bi.bi-cart-check.me-2
+                  | ĐẶT HÀNG NGAY
