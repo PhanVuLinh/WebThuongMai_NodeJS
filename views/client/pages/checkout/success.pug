@@ -3,57 +3,105 @@ include ../../mixins/box-head.pug
 
 block main
   .container.my-5
+
+    // ===== TIÊU ĐỀ =====
     .row
       .col-12
         +box-head("Đặt hàng thành công")
 
-    .row.mt-5.justify-content-center
-      .col-lg-7
-        .card.border-0.shadow-lg.rounded-4
-          .card-body.p-5.text-center
+    if(order)
 
-            // Icon success
-            .mb-4
-              .d-inline-flex.align-items-center.justify-content-center.rounded-circle.bg-success.bg-opacity-10(
-                style="width:120px;height:120px;"
-              )
-                i.bi.bi-check-circle-fill.text-success(
-                  style="font-size:70px;"
-                )
+      // ===== THÔNG BÁO =====
+      .row.justify-content-center.mt-4
+        .col-lg-8
+          .card.border.shadow-sm
+            .card-body.text-center.py-4
 
-            h2.fw-bold.text-success.mb-3
-              | Cảm ơn bạn đã đặt hàng!
+              h4.text-success.fw-bold
+                i.bi.bi-check-circle-fill.me-2
+                | Đặt hàng thành công
 
-            p.text-muted.fs-5.mb-4
-              | Đơn hàng của bạn đã được ghi nhận thành công.
-              br
-              | Chúng tôi sẽ xử lý và giao hàng trong thời gian sớm nhất.
+              p.mb-2
+                | Cảm ơn bạn đã mua sắm tại cửa hàng.
 
-            if orderCode
-              .alert.alert-success.border-0.shadow-sm.py-3
-                span.fw-semibold Mã đơn hàng của bạn:
-                span.fw-bold.text-primary.ms-2 #{orderCode}
+              p.mb-3
+                | Đơn hàng của bạn đang được xử lý.
 
-            hr.my-4
+              p
+                span.fw-semibold Mã đơn hàng:
+                span.text-primary.fw-bold.ms-2 #{order._id}
 
-            p.text-muted.mb-4
-              | Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ
-              br
-              strong Hotline:
-              |  0123 456 789
-              br
-              strong Email:
-              |  support@yourshop.com
+      // ===== THÔNG TIN & SẢN PHẨM =====
+      .row.mt-5
 
-            .d-flex.justify-content-center.gap-3.mt-4
-              a.btn.btn-primary.btn-lg.px-4.rounded-3.shadow-sm(
-                href="/"
-              )
-                i.bi.bi-house-door.me-2
-                | Trang chủ
+        // Thông tin giao hàng
+        .col-lg-4
+          .card.border.shadow-sm.h-100
+            .card-body
+              h5.fw-bold.mb-3
+                i.bi.bi-person.me-2
+                | Thông tin giao hàng
 
-              a.btn.btn-outline-success.btn-lg.px-4.rounded-3.shadow-sm(
-                href="/products"
-              )
-                i.bi.bi-bag-check.me-2
-                | Tiếp tục mua sắm
+              table.table.table-sm
+                tbody
+                  tr
+                    td.fw-semibold Họ tên
+                    td #{order.userInfo.fullName}
+                  tr
+                    td.fw-semibold Điện thoại
+                    td #{order.userInfo.phone}
+                  tr
+                    td.fw-semibold Địa chỉ
+                    td #{order.userInfo.address}
+
+        // Danh sách sản phẩm
+        .col-lg-8
+          .card.border.shadow-sm
+            .card-body
+              h5.fw-bold.mb-3
+                i.bi.bi-bag.me-2
+                | Sản phẩm đã đặt
+
+              if(order.products.length > 0)
+                .table-responsive
+                  table.table.table-bordered.align-middle
+                    thead.table-light
+                      tr.text-center
+                        th STT
+                        th Ảnh
+                        th.text-start Tên sản phẩm
+                        th Giá
+                        th SL
+                        th Thành tiền
+                    tbody
+                      each item, index in order.products
+                        tr.text-center
+                          td #{index + 1}
+                          td
+                            img(
+                              src=item.productInfo.thumbnail
+                              width="60"
+                            )
+                          td.text-start #{item.productInfo.title}
+                          td.text-end #{item.priceNew.toLocaleString()}₫
+                          td #{item.quantity}
+                          td.text-end.fw-bold #{item.totalPrice.toLocaleString()}₫
+
+              hr
+
+              .text-end
+                h5.fw-bold
+                  | Tổng cộng:
+                  span.text-danger.ms-2
+                    | #{order.totalPrice.toLocaleString()}₫
+
+    // ===== NÚT ĐIỀU HƯỚNG =====
+    .row.mt-5
+      .col-12.text-center
+        a.btn.btn-primary.me-3(href="/")
+          i.bi.bi-house-door.me-2
+          | Trang chủ
+
+        a.btn.btn-outline-secondary(href="/products")
+          i.bi.bi-cart.me-2
+          | Tiếp tục mua sắm
