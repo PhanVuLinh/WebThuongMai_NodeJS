@@ -34,3 +34,14 @@ module.exports.loginPost = (req, res, next) => {
   }
   next();//--> Thỏa mãn đi sang bước tiếp theo
 }
+
+
+module.exports.forgotPasswordPost = (req, res, next) => {
+  if (!req.body.email) {
+    req.flash("error", `Vui lòng nhập email`);
+    res.redirect(req.get('Referer'));
+    return;
+  }
+
+  next();//--> Thỏa mãn đi sang bước tiếp theo
+}
