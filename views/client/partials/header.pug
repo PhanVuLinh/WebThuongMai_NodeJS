@@ -45,9 +45,13 @@ header.header.shadow-sm.bg-white
                 i.bi.bi-cart3.fs-4
                 if miniCart && miniCart.totalQuantity > 0
                   span.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger #{ miniCart.totalQuantity}
-                   
-            li.nav-item
-              a.nav-link.fw-semibold(href="/user/register") Đăng ký
+            if(user)
+              li.nav-item
+                a.nav-link.fw-semibold(href="/user/logout") Đăng xuất
+            else 
+              
+              li.nav-item
+                a.nav-link.fw-semibold(href="/user/register") Đăng ký
 
-            li.nav-item
-              a.nav-link.fw-semibold(href="/user/login") Đăng nhập
+              li.nav-item
+                a.nav-link.fw-semibold(href="/user/login") Đăng nhập
