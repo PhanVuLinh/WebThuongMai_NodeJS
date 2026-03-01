@@ -13,7 +13,7 @@ module.exports.sendMail = (email, subject, html) => {
     from: process.env.EMAIL_USER,
     to: email,
     subject: subject,
-    html: html
+    html: html 
   };
 
   transporter.sendMail(mailOptions, function (error, info) {

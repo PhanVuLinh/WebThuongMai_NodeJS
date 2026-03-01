@@ -44,6 +44,33 @@
   color: #0d6efd;
 }
 
+/* Header scroll effect */
+.header.scrolled {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 8px 0;
+}
+
+/* Menu underline animation đẹp hơn */
+.header .inner-menu>ul>li>a {
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.header .inner-menu>ul>li>a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: #0d6efd;
+  transition: 0.3s ease;
+}
+
+.header .inner-menu>ul>li>a:hover::after {
+  width: 100%;
+}
+
 /* End Header */
 
 /* ===== Footer ===== */
@@ -460,3 +487,14 @@
 }
 
 /* End Show Alert */
+/*InfoUser*/
+.info-item label {
+  font-size: 13px;
+  color: #888;
+}
+
+.info-item p {
+  font-size: 15px;
+}
+
+/*end InfoUser*/

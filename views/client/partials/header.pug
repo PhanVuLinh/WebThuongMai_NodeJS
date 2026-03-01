@@ -1,57 +1,56 @@
 include ../mixins/sub-menu.pug
 
-header.header.shadow-sm.bg-white
+header.header
   .container
-    .row.align-items-center.py-2
+    .row.align-items-center.py-3
 
-      // LOGO
-      .col-lg-3.col-md-3.col-6
+      // ===== LOGO =====
+      .col-lg-3.col-md-4.col-6
         .inner-logo
-          a.d-flex.align-items-center(href="/")
-            img(src="/images/logo2.png", alt="logo", height="60")
-            span.ms-2.fw-bold.text-dark Linh Store
+          a.d-flex.align-items-center.text-decoration-none(href="/")
+            img(src="/images/logo2.png", alt="logo", height="50")
+            span.ms-2.fw-bold.text-primary Linh Store
 
-      // SEARCH
+      // ===== SEARCH =====
       .col-lg-5.d-none.d-lg-block
-        form(
-          action="/search" 
-          method="GET"
-        )
+        form(action="/search" method="GET")
           .input-group
-            input.form-control.rounded-start(
+            input.form-control(
               type="text"
-              placeholder="Nhập từ khóa sản phẩm..."
+              placeholder="Tìm kiếm sản phẩm..."
               name="keyword"
-              value= keyword
+              value=keyword
             )
-            button.btn.btn-primary.rounded-end(type="submit")
+            button.btn.btn-primary(type="submit")
               i.bi.bi-search
-              |  Tìm
 
-      // MENU
-      .col-lg-4.col-md-9.col-6
+      // ===== MENU =====
+      .col-lg-4.col-md-8.col-6
         nav.inner-menu
-          ul.nav.justify-content-end.align-items-center.mb-0
-            li.nav-item
-              a.nav-link.fw-semibold(href="/") Trang chủ
+          ul
 
-            li.nav-item.sub-menu
+            li
+              a(href="/") Trang chủ
+
+            li.sub-menu
               - const pathProduct = "/products"
-              a.nav-link.fw-semibold(href=pathProduct) Sản phẩm
+              a(href=pathProduct) Sản phẩm
               +sub-menu(layoutProductsCategory, pathProduct)
 
             li
-              a.position-relative.d-inline-block(href="/cart")
-                i.bi.bi-cart3.fs-4
+              a.position-relative(href="/cart")
+                i.bi.bi-cart3.fs-5
                 if miniCart && miniCart.totalQuantity > 0
-                  span.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger #{ miniCart.totalQuantity}
-            if(user)
-              li.nav-item
-                a.nav-link.fw-semibold(href="/user/logout") Đăng xuất
-            else 
-              
-              li.nav-item
-                a.nav-link.fw-semibold(href="/user/register") Đăng ký
+                  span.badge.bg-danger.position-absolute.top-0.start-100.translate-middle.rounded-pill #{miniCart.totalQuantity}
 
-              li.nav-item
-                a.nav-link.fw-semibold(href="/user/login") Đăng nhập
+            if(user)
+              li.sub-menu
+                a(href="/user/info") #{user.fullName}
+                ul
+                  li
+                    a(href="/user/logout") Đăng xuất
+            else
+              li
+                a(href="/user/register") Đăng ký
+              li
+                a.btn.btn-outline-primary.rounded-pill.px-3(href="/user/login") Đăng nhập

@@ -1,0 +1,48 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-5
+    .row
+      .col-12
+        +box-head("Thông tin tài khoản")
+
+    .row.justify-content-center.mt-4
+      .col-lg-8
+        .card.shadow-lg.border-0.rounded-4
+          .card-body.p-4
+
+            .row.align-items-center
+
+              // ===== Avatar =====
+              .col-md-4.text-center.mb-4.mb-md-0
+                img.rounded-circle.shadow(
+                  src="https://sportnet.vn/publics/images/user.png"
+                  width="140"
+                  height="140"
+                )
+                h5.mt-3.fw-bold #{user.fullName}
+                if user.status == "active"
+                  span.badge.bg-success.mt-2 Hoạt động
+                else
+                  span.badge.bg-danger.mt-2 Bị khóa
+
+              // ===== Thông tin chi tiết =====
+              .col-md-8
+
+                .info-item.mb-3
+                  label.text-muted Họ và tên
+                  p.fw-semibold.mb-0 #{user.fullName}
+
+                .info-item.mb-3
+                  label.text-muted Email
+                  p.fw-semibold.mb-0 #{user.email}
+
+                .mt-4.d-flex.gap-3
+                  a.btn.btn-primary.rounded-pill.px-4(href="/user/edit")
+                    i.bi.bi-pencil-square.me-1
+                    |  Chỉnh sửa
+
+                  a.btn.btn-outline-secondary.rounded-pill.px-4(href="/user/password/reset")
+                    i.bi.bi-key.me-1
+                    |  Đổi mật khẩu
