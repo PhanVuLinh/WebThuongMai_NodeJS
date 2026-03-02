@@ -49,7 +49,11 @@ app.use(express.static("public"));
 //routes
 routeAdmin(app);
 route(app);
-
+app.use((req, res) => {
+  res.status(404).render("client/pages/errors/404", {
+    titlePage: "404 Not Found",
+  });
+});
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
