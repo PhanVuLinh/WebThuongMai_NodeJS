@@ -1,0 +1,96 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+  .container.py-5
+    .row.justify-content-center
+      .col-lg-8
+        .card.shadow-lg.border-0.rounded-4
+          .card-body.p-5
+            h2.text-center.mb-4.fw-bold Cài đặt chung
+
+            +alert-error(5000)
+            +alert-success(5000)
+
+            form(
+              action=`${prefixAdmin}/settings/general?_method=PATCH`
+              method="POST"
+              enctype="multipart/form-data"
+            )
+
+              // Website Name
+              .mb-4
+                label.form-label.fw-semibold(for="websiteName") Tên website
+                input.form-control.form-control-lg(
+                  type="text"
+                  id="websiteName"
+                  name="websiteName"
+                  value=(settingGeneral ? settingGeneral.websiteName : "")
+                  placeholder="Nhập tên website..."
+                )
+
+              // Logo Upload
+              .mb-4( class="form-group" upload-image)
+                label.form-label.fw-semibold(for="logo") Logo
+                input.form-control(
+                  type="file"
+                  id="logo"
+                  name="logo"
+                  accept="image/*"
+                  upload-image-input
+                )
+                .mt-3.text-center
+                  img.image-preview.rounded-3.shadow-sm(
+                    src=(settingGeneral ? settingGeneral.logo : "")
+                    style="max-height:150px; object-fit:contain;"
+                    upload-image-preview
+                  )
+
+              // Phone
+              .mb-4
+                label.form-label.fw-semibold(for="phone") Số điện thoại
+                input.form-control(
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  value=(settingGeneral ? settingGeneral.phone : "")
+                  placeholder="Nhập số điện thoại..."
+                )
+
+              // Email
+              .mb-4
+                label.form-label.fw-semibold(for="email") Email
+                input.form-control(
+                  type="email"
+                  id="email"
+                  name="email"
+                  value=(settingGeneral ? settingGeneral.email : "")
+                  placeholder="example@gmail.com"
+                )
+
+              // Address
+              .mb-4
+                label.form-label.fw-semibold(for="address") Địa chỉ
+                input.form-control(
+                  type="text"
+                  id="address"
+                  name="address"
+                  value=(settingGeneral ? settingGeneral.address : "")
+                  placeholder="Nhập địa chỉ..."
+                )
+
+              // Copyright
+              .mb-4
+                label.form-label.fw-semibold(for="copyright") Copyright
+                input.form-control(
+                  type="text"
+                  id="copyright"
+                  name="copyright"
+                  value=(settingGeneral ? settingGeneral.copyright : "")
+                  placeholder="© 2026 Your Company"
+                )
+
+              .d-grid.mt-4
+                button.btn.btn-primary.btn-lg.rounded-3(type="submit")
+                  i.bi.bi-save.me-2
+                  | Cập nhật
