@@ -1,6 +1,64 @@
-extends  ../../layouts/default.pug
+extends ../../layouts/default.pug
 
-block main 
-  h1 Trang tổng quan
+block main
+  h1.mb-4 Trang tổng quan
 
-  div #{role}
+  .row
+    .col-md-3
+      .card.shadow-sm.border-0.rounded-3
+        .card-body.text-center
+          h6.text-muted Danh mục sản phẩm
+          h2.text-primary.fw-bold #{statistic.categoryProduct.total}
+          .small
+            span.text-success Hoạt động: #{statistic.categoryProduct.active}
+            br
+            span.text-danger Dừng: #{statistic.categoryProduct.inactive}
+
+    .col-md-3
+      .card.shadow-sm.border-0.rounded-3
+        .card-body.text-center
+          h6.text-muted Sản phẩm
+          h2.text-success.fw-bold #{statistic.product.total}
+          .small
+            span.text-success Hoạt động: #{statistic.product.active}
+            br
+            span.text-danger Dừng: #{statistic.product.inactive}
+
+    .col-md-3
+      .card.shadow-sm.border-0.rounded-3
+        .card-body.text-center
+          h6.text-muted Tài khoản admin
+          h2.text-warning.fw-bold #{statistic.account.total}
+          .small
+            span.text-success Hoạt động: #{statistic.account.active}
+            br
+            span.text-danger Dừng: #{statistic.account.inactive}
+
+    .col-md-3
+      .card.shadow-sm.border-0.rounded-3
+        .card-body.text-center
+          h6.text-muted Tài khoản client
+          h2.text-info.fw-bold #{statistic.user.total}
+          .small
+            span.text-success Hoạt động: #{statistic.user.active}
+            br
+            span.text-danger Dừng: #{statistic.user.inactive}
+
+  hr.my-5
+
+  .card.shadow-sm.border-0.rounded-3
+    .card-header.bg-white.fw-bold Thông tin tài khoản
+    .card-body.text-center
+      if(user.avatar)
+        img.rounded-circle.mb-3(
+          src=user.avatar
+          style="width:120px;height:120px;object-fit:cover;"
+        )
+      if(user.fullName)
+        p.mb-1 Họ tên: <b>#{user.fullName}</b>
+      if(user.email)
+        p.mb-1 Email: <b>#{user.email}</b>
+      if(user.phone)
+        p.mb-1 Số điện thoại: <b>#{user.phone}</b>
+      if(role.title)
+        p.mb-0 Phân quyền: <b class="text-primary">#{role.title}</b>
