@@ -2,13 +2,38 @@ const Account = require("../../models/account.model");
 const Role = require("../../models/role.model");
 const systemConfig = require("../../config/system");
 const md5 = require('md5');
+const paginationHelper = require("../../helpers/pagination");
+const searchHelper = require("../../helpers/search");
 
 //[GET] /admin/accounts
 module.exports.index = async (req, res) => {
   let find = {
     deleted: false,
   };
-  const records = await Account.find(find).select("-password -token");
+
+  ///tìm kiếm
+  const objectSearch = searchHelper(req.query);
+  if (objectSearch.regex) {
+    find.fullName = objectSearch.regex;
+  }
+
+
+  //Phân trang Pagination
+  const countAccounts = await Account.countDocuments(find);
+  let objectPagination = paginationHelper(
+    {
+      currentPage: 1,
+      limitItem: 4
+    },
+    req.query,
+    countAccounts
+  );
+
+  // const records = await Account.find(find).select("-password -token");
+  const records = await Account.find(find)
+    .select("-password -token")
+    .limit(objectPagination.limitItem)
+    .skip(objectPagination.skip);
 
   for (const record of records) {
     const role = await Role.findOne({
@@ -20,8 +45,12 @@ module.exports.index = async (req, res) => {
 
   res.render("admin/pages/accounts/index", {
     titlePage: "Danh sách tài khoản",
-    records: records
+    records: records,
+    keyword: objectSearch.keyword,
+    pagination: objectPagination
   });
+
+
 };
 
 //[GET] /admin/accounts/create
@@ -103,4 +132,30 @@ module.exports.editPatch = async (req, res) => {
   }
 
   res.redirect(req.get('Referer'));
-};  
+};
+
+
+/////[PATCH] /admin/accounts/change-status/:status/:id
+module.exports.changeStatus = async (req, res) => {
+  const status = req.params.status;
+  const id = req.params.id;
+
+  await Account.updateOne({ _id: id }, { status: status });
+
+  req.flash("success", "Cập nhật trạng thái thành công!");
+
+  res.redirect(req.get('Referer'));
+}
+
+
+/////[DELETE] /admin/accounts/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+  await Account.updateOne(
+    { _id: id },
+    { deleted: true }
+  );
+  req.flash("success", `Đã xóa thành công tài khoản`);
+
+  res.redirect(req.get('Referer'));
+}

@@ -19,17 +19,3 @@ mixin pagination(pagination)
             class="page-link"
             button-pagination = pagination.currentPage + 1
           ) Trang sau
-      
-      div.ms-4 
-        li.page-item
-          button(
-            class="page-link"
-            button-pagination = pagination.currentPage =1
-          ) Trang đầu
-
-      div.ms-4 
-        li.page-item
-          button(
-            class="page-link"
-            button-pagination = pagination.totalPage
-          ) Trang cuối
