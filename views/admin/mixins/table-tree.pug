@@ -1,81 +1,58 @@
 mixin table-tree(items, level = 1)
+
   each item, index in items
-    - const prefix = Array(level + 1).join("-- ")
+
+    - const prefix = Array(level + 1).join("› ")
+
     tr
-      td
-        input(
-          type="checkbox"
-          name="id"
-          value=item.id
-        )
-
-      td #{item.index}
 
       td
-        img.rounded(
+        input(type="checkbox" name="id" value=item.id)
+
+      td.fw-semibold #{item.index}
+
+      td
+        img.category-img(
           src=item.thumbnail
           alt=item.title
-          width="80"
         )
 
-      td #{prefix}#{item.title}
+      td
+        span.category-title #{prefix}#{item.title}
 
       td
-        input(
+        input.form-control.form-control-sm.position-input(
           type="number"
           value=item.position
-          style="width: 60px"
           min="1"
-          name="position"
         )
 
       td
-        if(role.permissions.includes("products-category_edit"))
-          if(item.status == "active")
-            button(
-              data-status=item.status
-              data-id=item.id
-              button-change-status
-              class="badge bg-success rounded-pill"
-            ) Hoạt động
-          else
-            button(
-              data-status=item.status
-              data-id=item.id
-              button-change-status
-              class="badge bg-danger rounded-pill"
-            ) Dừng hoạt động
-        else 
-          if(item.status == "active")
-            button(
-              data-status=item.status
-              data-id=item.id
-              button-change-status
-              class="badge bg-success rounded-pill"
-            ) Hoạt động
-          else
-            button(
-              data-status=item.status
-              data-id=item.id
-              button-change-status
-              class="badge bg-danger rounded-pill"
-            ) Dừng hoạt động
+        if(item.status == "active")
+          span.badge.status-active Hoạt động
+        else
+          span.badge.status-stop Dừng
 
       td
-        a(
-          href=`${prefixAdmin}/products-category/detail/${item.id}`
-          class="btn btn-primary btn-sm ms-1"
-        ) Chi tiết
+        .action-buttons
 
-        if(role.permissions.includes("products-category_edit"))
-          a(
-            href=`${prefixAdmin}/products-category/edit/${item.id}`
-            class="btn btn-warning btn-sm ms-1"
-          ) Sửa
-        if(role.permissions.includes("products-category_deleted"))
-          button.btn.btn-danger.btn-sm.ms-1(
-            button-delete
-            data-id=item.id
-          ) Xóa
+          a.btn.btn-sm.btn-view(
+            href=`${prefixAdmin}/products-category/detail/${item.id}`
+          )
+            i.fas.fa-eye
+
+          if(role.permissions.includes("products-category_edit"))
+            a.btn.btn-sm.btn-edit(
+              href=`${prefixAdmin}/products-category/edit/${item.id}`
+            )
+              i.fas.fa-pen
+
+          if(role.permissions.includes("products-category_deleted"))
+            button.btn.btn-sm.btn-delete(
+              button-delete
+              data-id=item.id
+            )
+              i.fas.fa-trash
+
     if item.children && item.children.length > 0
       +table-tree(item.children, level + 1)

@@ -1,35 +1,37 @@
 extends  ../../layouts/default.pug
 include ../../mixins/table-tree.pug
 
-block main 
+block main
   if(role.permissions.includes("products-category_view"))
-    h1.mb-3 Danh mục sản phẩm
 
-    .card.mb-3
-      .card-header Danh sách 
-      .card-body
-        .row
-          .col-8 
-          .col-4 
-            if(role.permissions.includes("products-category_create"))
-              a(
-                href=`${prefixAdmin}/products-category/create`
-                class="btn btn-outline-success"
-              ) + Thêm mới
-        
-        table(
-          class="table table-hover table-sm align-middle" 
-          checkbox-multi
+    .page-header.d-flex.justify-content-between.align-items-center.mb-4
+      h3.fw-bold.mb-0
+        i.fas.fa-sitemap.me-2.text-primary
+        | Danh mục sản phẩm
+
+      if(role.permissions.includes("products-category_create"))
+        a.btn.btn-primary(
+          href=`${prefixAdmin}/products-category/create`
         )
+          i.fas.fa-plus.me-1
+          | Thêm danh mục
+
+    .card.admin-card
+      .card-body.p-0
+
+        table.table.admin-table.align-middle.mb-0(checkbox-multi)
+
           thead
             tr
-              th 
+              th(width="40")
                 input(type="checkbox" name="checkall")
-              th STT
-              th Hình ảnh
+
+              th(width="60") STT
+              th(width="120") Hình
               th Tiêu đề
-              th Vị trí
-              th Trạng thái
-              th Hành động
+              th(width="100") Vị trí
+              th(width="130") Trạng thái
+              th(width="160") Hành động
+
           tbody
             +table-tree(records)

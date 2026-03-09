@@ -1,15 +1,12 @@
 mixin search(keyword)
-  form(id="form-search")
-              .input-group
-                input(
-                  type="text"
-                  placeholder="Nhập từ khóa"
-                  name="keyword"
-                  class="form-control"
-                  value= keyword
-                )
-                .input-group-append
-                  button(
-                    class="btn btn-success"
-                    type="submit"
-                  ) Tìm
+  form#form-search
+    .input-group.search-box
+      input.form-control(
+        type="text"
+        placeholder="Nhập từ khóa sản phẩm..."
+        name="keyword"
+        value=keyword
+      )
+
+      button.btn.btn-primary(type="submit")
+        i.fas.fa-search

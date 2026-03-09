@@ -444,3 +444,217 @@
   color: #475569;
 }
 /* ===== End Dashboard Card ===== */
+
+/* ===== Danh mục ADMIN ===== */
+
+/* CARD */
+
+.admin-card{
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+/* TABLE */
+
+.admin-table thead{
+  background:#f8fafc;
+  font-size:14px;
+}
+
+.admin-table tbody tr{
+  transition:0.2s;
+}
+
+.admin-table tbody tr:hover{
+  background:#f1f5f9;
+}
+
+/* IMAGE */
+
+.category-img{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+}
+
+/* TITLE */
+
+.category-title{
+  font-weight:500;
+  color:#334155;
+}
+
+/* POSITION */
+
+.position-input{
+  width:70px;
+}
+
+/* STATUS */
+
+.status-active{
+  background:#16a34a;
+  color:#fff;
+  padding:6px 10px;
+  border-radius:20px;
+}
+
+.status-stop{
+  background:#ef4444;
+  color:#fff;
+  padding:6px 10px;
+  border-radius:20px;
+}
+
+/* ACTION */
+
+.action-buttons{
+  display:flex;
+  gap:6px;
+}
+
+.btn-view{
+  background:#3b82f6;
+  color:#fff;
+}
+
+.btn-edit{
+  background:#f59e0b;
+  color:#fff;
+}
+
+.btn-delete{
+  background:#ef4444;
+  color:#fff;
+}
+
+.btn-view:hover,
+.btn-edit:hover,
+.btn-delete:hover{
+  opacity:0.85;
+}
+
+/* CARD ADMIN */
+
+.admin-card{
+  border:none;
+  border-radius:14px;
+  box-shadow:0 6px 25px rgba(0,0,0,0.06);
+}
+
+/* FORM */
+
+.form-label{
+  font-weight:600;
+  color:#334155;
+}
+
+.form-control,
+.form-select{
+  border-radius:8px;
+}
+
+/* IMAGE PREVIEW */
+
+.image-preview{
+  width:150px;
+  height:150px;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+}
+
+/* RADIO BADGE */
+
+.form-check-label .badge{
+  font-weight:500;
+}
+
+/* BUTTON */
+
+.btn-primary{
+  border-radius:8px;
+}
+/* ===== end Danh mục ADMIN ===== */
+
+/* ===== product ===== */
+.admin-card{
+  border:none;
+  border-radius:14px;
+  box-shadow:0 6px 25px rgba(0,0,0,0.06);
+}
+
+/* table */
+
+.admin-table thead{
+  background:#f8fafc;
+  font-size:14px;
+}
+
+.admin-table tbody tr{
+  transition:0.2s;
+}
+
+.admin-table tbody tr:hover{
+  background:#f1f5f9;
+}
+
+/* image */
+
+.product-thumb{
+  width:70px;
+  height:70px;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+}
+
+/* position */
+
+.position-input{
+  width:70px;
+}
+
+/* status */
+
+.status-active{
+  background:#16a34a;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:20px;
+}
+
+.status-stop{
+  background:#ef4444;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:20px;
+}
+
+/* action */
+
+.btn-view{
+  background:#3b82f6;
+  color:#fff;
+}
+
+.btn-edit{
+  background:#f59e0b;
+  color:#fff;
+}
+
+.btn-delete{
+  background:#ef4444;
+  color:#fff;
+}
+
+.btn-view:hover,
+.btn-edit:hover,
+.btn-delete:hover{
+  opacity:0.85;
+}
+
+/* ===end product ===== */
