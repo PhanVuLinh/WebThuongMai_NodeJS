@@ -4,12 +4,21 @@ const systemConfig = require("../../config/system");
 const md5 = require('md5');
 const paginationHelper = require("../../helpers/pagination");
 const searchHelper = require("../../helpers/search");
+const filterStatusHelper = require("../../helpers/filterStatus");
 
 //[GET] /admin/accounts
 module.exports.index = async (req, res) => {
+  //bộ lọc
+  const filterStatus = filterStatusHelper(req.query);
+
   let find = {
     deleted: false,
   };
+
+  if (req.query.status) {
+    find.status = req.query.status;
+  }
+
 
   ///tìm kiếm
   const objectSearch = searchHelper(req.query);
@@ -46,6 +55,7 @@ module.exports.index = async (req, res) => {
   res.render("admin/pages/accounts/index", {
     titlePage: "Danh sách tài khoản",
     records: records,
+    filterStatus: filterStatus,
     keyword: objectSearch.keyword,
     pagination: objectPagination
   });
@@ -159,3 +169,63 @@ module.exports.deleteItem = async (req, res) => {
 
   res.redirect(req.get('Referer'));
 }
+
+
+///[PATCH] /admin/accounts/change-multi 
+module.exports.changeMulti = async (req, res) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split(", ");
+
+  const updatedBy = {
+    account_id: res.locals.user.id,
+    updatedAt: new Date()
+  }
+
+  switch (type) {
+    case "active":
+      await Account.updateMany({ _id: { $in: ids } }, {
+        status: "active",
+        $push: { updatedBy: updatedBy }
+      });
+      req.flash("success", `Cập nhật trạng thái thành công của ${ids.length} sản phẩm`);
+      break;
+    case "inactive":
+      await Account.updateMany({ _id: { $in: ids } }, {
+        status: "inactive", 
+        $push: { updatedBy: updatedBy }
+      });
+      req.flash("success", `Cập nhật trạng thái thành công của ${ids.length} sản phẩm`);
+      break;
+    case "delete-all":
+      await Account.updateMany({ _id: { $in: ids } },
+        {
+          deleted: true,
+          deletedBy: {
+            account_id: res.locals.user.id,
+            deletedAt: new Date()
+          }
+        }
+      );
+      req.flash("success", `Đã xóa thành công ${ids.length} sản phẩm`);
+      break;
+    case "change-position":
+      console.log(ids);
+      for (const item of ids) {
+        let [id, position] = item.split("-");
+        position = parseInt(position);
+
+        await Account.updateOne({ _id: id },
+          {
+            position: position,
+            $push: { updatedBy: updatedBy }
+          }
+        );
+      }
+      req.flash("success", `Đã đổi vị trí thành công ${ids.length} sản phẩm`);
+
+      break;
+    default:
+      break;
+  }
+  res.redirect(req.get('Referer'));
+};

@@ -33,7 +33,7 @@ block main
       .card-body
         .row
           .col-8 
-            +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+            +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`, true)
           .col-4 
             if(role.permissions.includes("products_create"))
               a(

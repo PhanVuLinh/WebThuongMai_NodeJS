@@ -1,4 +1,4 @@
-mixin form-change-multi (path) 
+mixin form-change-multi (path, showPosition = true) 
   form(
         action=path
         method="POST"
@@ -11,7 +11,8 @@ mixin form-change-multi (path)
               option(value="active") Hoạt động
               option(value="inactive") Dừng hoạt động
               option(value="delete-all") Xóa tất cả
-              option(value="change-position") Cập nhật vị trí
+              if showPosition
+                option(value="change-position") Cập nhật vị trí
           .form-group
             input.form-control.d-none(
               type="text"
