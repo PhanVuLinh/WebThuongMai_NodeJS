@@ -1,23 +1,43 @@
-.sider 
-  .inner-menu 
-    ul  
-      li 
-        a(href=`${prefixAdmin}/dashboard`) Tổng quan 
-      if(role.permissions.includes("products-category_view"))
-        li
-          a(href=`${prefixAdmin}/products-category`)  Danh mục 
-      if(role.permissions.includes("products_view"))    
-        li
-          a(href=`${prefixAdmin}/products`)  Danh sách sản phẩm  
-      if(role.permissions.includes("accounts_view"))  
-        li
-          a(href=`${prefixAdmin}/accounts`)  Danh sách tài khoản
-      if(role.permissions.includes("roles_view"))  
-        li
-          a(href=`${prefixAdmin}/roles`)  Nhóm quyền
-      if(role.permissions.includes("roles_permissions"))  
-        li
-          a(href=`${prefixAdmin}/roles/permissions`)  Phân quyền 
+.sider
+  .inner-menu
+    ul
 
       li
-        a(href=`${prefixAdmin}/settings/general`)  Cài đặt chung
+        a(href=`${prefixAdmin}/dashboard`)
+          i.fa-solid.fa-chart-line
+          span Tổng quan
+
+      if(role.permissions.includes("products-category_view"))
+        li
+          a(href=`${prefixAdmin}/products-category`)
+            i.fa-solid.fa-folder-tree
+            span Danh mục
+
+      if(role.permissions.includes("products_view"))
+        li
+          a(href=`${prefixAdmin}/products`)
+            i.fa-solid.fa-box-open
+            span Danh sách sản phẩm
+
+      if(role.permissions.includes("accounts_view"))
+        li
+          a(href=`${prefixAdmin}/accounts`)
+            i.fa-solid.fa-users
+            span Danh sách tài khoản
+
+      if(role.permissions.includes("roles_view"))
+        li
+          a(href=`${prefixAdmin}/roles`)
+            i.fa-solid.fa-user-shield
+            span Nhóm quyền
+
+      if(role.permissions.includes("roles_permissions"))
+        li
+          a(href=`${prefixAdmin}/roles/permissions`)
+            i.fa-solid.fa-key
+            span Phân quyền
+
+      li
+        a(href=`${prefixAdmin}/settings/general`)
+          i.fa-solid.fa-gear
+          span Cài đặt chung

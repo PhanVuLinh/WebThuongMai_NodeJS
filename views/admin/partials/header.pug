@@ -1,17 +1,46 @@
 header.header
   .container-fluid
     .row.align-items-center
-      .col-3
+
+      // LEFT
+      .col-6.d-flex.align-items-center
+
+        // Toggle Sidebar
+        button.btn.btn-toggle.me-3
+          i.fa-solid.fa-bars
+
+        // Logo
         .inner-logo
-          a(href="/admin/dashboard") ADMIN
-      
-      .col-9
-        div(class="text-end")
-          a(
-            href=`${prefixAdmin}/my-account`
-            class="btn btn-primary btn-sm ms-2"
-          ) #{user.fullName}
-          a(
-            href=`${prefixAdmin}/auth/logout`
-            class="btn btn-danger btn-sm"
-          ) Đăng xuất
+          a(href="/admin/dashboard")
+            i.fa-solid.fa-shield-halved.me-2
+            | ADMIN PANEL
+
+      // RIGHT
+      .col-6
+        .d-flex.justify-content-end.align-items-center
+
+          .dropdown
+            a.btn.btn-user.dropdown-toggle(
+              href="#"
+              data-bs-toggle="dropdown"
+            )
+              i.fa-solid.fa-circle-user.me-2
+              | #{user.fullName}
+
+            ul.dropdown-menu.dropdown-menu-end
+              li
+                a.dropdown-item(
+                  href=`${prefixAdmin}/my-account`
+                )
+                  i.fa-solid.fa-user.me-2
+                  | Tài khoản
+
+              li
+                hr.dropdown-divider
+
+              li
+                a.dropdown-item.text-danger(
+                  href=`${prefixAdmin}/auth/logout`
+                )
+                  i.fa-solid.fa-right-from-bracket.me-2
+                  | Đăng xuất

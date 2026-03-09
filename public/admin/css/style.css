@@ -1,50 +1,98 @@
-/* Header */
+/* ===== HEADER ADMIN ===== */
+
 .header {
-  background: #202020;
-  padding: 10px 0;
+  background: linear-gradient(90deg, #0f172a, #1e293b);
+  padding: 12px 20px;
+  border-bottom: 1px solid #1e293b;
   position: sticky;
   top: 0;
   z-index: 999;
 }
 
-.header .inner-logo a {
-  font-size: 24px;
+/* Logo */
+
+.inner-logo a {
+  color: #ffffff;
+  font-size: 18px;
   font-weight: 700;
+  text-decoration: none;
+}
+
+.inner-logo i {
+  color: #38bdf8;
+}
+
+/* Toggle button */
+
+.btn-toggle {
+  background: #1e293b;
+  border: none;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+}
+
+.btn-toggle:hover {
+  background: #38bdf8;
   color: #fff;
 }
 
-/* End Header */
+/* User button */
 
-/* Body */
+.btn-user {
+  background: #1e293b;
+  border: none;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.25s ease;
+}
+
+.btn-user:hover {
+  background: #38bdf8;
+  color: #ffffff;
+}
+
+/* Dropdown */
+
+.dropdown-menu {
+  border-radius: 10px;
+  border: none;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item:hover {
+  background: #f1f5f9;
+}
+
+.dropdown-item i {
+  width: 18px;
+}
+
+/* ===== BODY ===== */
+
 .body .sider {
-  width: 150px;
-  background: #323232;
-  color: #fff;
-  height: calc(100vh - 56px);
-  position: fixed;
-  top: 56px;
-  left: 0;
-}
-
-.body .main {
-  margin: 15px;
-  position: relative;
-  left: 150px;
-  width: calc(100% - 180px);
-}
-
-/* End Body */
-/* Sidebar */
-.body .sider {
-  width: 150px;
-  background: #323232;
-  color: #fff;
+  width: 200px;
+  background: #0f172a;
+  color: #cbd5e1;
   height: calc(100vh - 56px);
   position: fixed;
   top: 56px;
   left: 0;
   overflow-y: auto;
 }
+
+.body .main {
+  margin: 20px;
+  position: relative;
+  left: 200px;
+  width: calc(100% - 220px);
+}
+
+/* ===== SIDEBAR ===== */
 
 .sider .inner-menu {
   padding: 10px 0;
@@ -57,25 +105,43 @@
 }
 
 .sider .inner-menu ul li {
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .sider .inner-menu ul li a {
-  display: block;
-  padding: 10px 15px;
-  color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 16px;
+  color: #cbd5e1;
   text-decoration: none;
   font-size: 14px;
-  transition: all 0.2s ease;
+
   border-left: 3px solid transparent;
+  transition: all 0.25s ease;
 }
 
-/* Hover */
+/* Hover menu */
+
 .sider .inner-menu ul li a:hover {
-  background: #3f3f3f;
-  color: #fff;
+  background: #1e293b;
+  color: #38bdf8;
+  border-left: 3px solid #38bdf8;
+  padding-left: 20px;
 }
 
+/* ===== SCROLLBAR ===== */
+
+.sider::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sider::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+}
+/* ===== End SIDEBAR ===== */
 /* Show Alert */
 /* ===== Toast Alert ===== */
 [show-alert] {
