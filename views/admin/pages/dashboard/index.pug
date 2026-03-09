@@ -1,64 +1,79 @@
 extends ../../layouts/default.pug
 
 block main
-  h1.mb-4 Trang tổng quan
+  h3.fw-bold.mb-4.text-dark
+    i.fas.fa-chart-line.me-2.text-primary
+    Trang tổng quan
 
-  .row
-    .col-md-3
-      .card.shadow-sm.border-0.rounded-3
-        .card-body.text-center
-          h6.text-muted Danh mục sản phẩm
-          h2.text-primary.fw-bold #{statistic.categoryProduct.total}
-          .small
-            span.text-success Hoạt động: #{statistic.categoryProduct.active}
-            br
-            span.text-danger Dừng: #{statistic.categoryProduct.inactive}
+  .row.g-4
 
-    .col-md-3
-      .card.shadow-sm.border-0.rounded-3
-        .card-body.text-center
-          h6.text-muted Sản phẩm
-          h2.text-success.fw-bold #{statistic.product.total}
-          .small
-            span.text-success Hoạt động: #{statistic.product.active}
-            br
-            span.text-danger Dừng: #{statistic.product.inactive}
+    .col-xl-3.col-md-6
+      .stat-card
+        .icon.bg-primary
+          i.fas.fa-list
+        .info
+          span.title Danh mục sản phẩm
+          h2 #{statistic.categoryProduct.total}
+          p
+            span.text-success #{statistic.categoryProduct.active} hoạt động
+            |  /
+            span.text-danger #{statistic.categoryProduct.inactive} dừng
 
-    .col-md-3
-      .card.shadow-sm.border-0.rounded-3
-        .card-body.text-center
-          h6.text-muted Tài khoản admin
-          h2.text-warning.fw-bold #{statistic.account.total}
-          .small
-            span.text-success Hoạt động: #{statistic.account.active}
-            br
-            span.text-danger Dừng: #{statistic.account.inactive}
+    .col-xl-3.col-md-6
+      .stat-card
+        .icon.bg-success
+          i.fas.fa-box
+        .info
+          span.title Sản phẩm
+          h2 #{statistic.product.total}
+          p
+            span.text-success #{statistic.product.active} hoạt động
+            |  /
+            span.text-danger #{statistic.product.inactive} dừng
 
-    .col-md-3
-      .card.shadow-sm.border-0.rounded-3
-        .card-body.text-center
-          h6.text-muted Tài khoản client
-          h2.text-info.fw-bold #{statistic.user.total}
-          .small
-            span.text-success Hoạt động: #{statistic.user.active}
-            br
-            span.text-danger Dừng: #{statistic.user.inactive}
+    .col-xl-3.col-md-6
+      .stat-card
+        .icon.bg-warning
+          i.fas.fa-user-shield
+        .info
+          span.title Admin
+          h2 #{statistic.account.total}
+          p
+            span.text-success #{statistic.account.active} hoạt động
+            |  /
+            span.text-danger #{statistic.account.inactive} dừng
 
-  hr.my-5
+    .col-xl-3.col-md-6
+      .stat-card
+        .icon.bg-info
+          i.fas.fa-users
+        .info
+          span.title Client
+          h2 #{statistic.user.total}
+          p
+            span.text-success #{statistic.user.active} hoạt động
+            |  /
+            span.text-danger #{statistic.user.inactive} dừng
 
-  .card.shadow-sm.border-0.rounded-3
-    .card-header.bg-white.fw-bold Thông tin tài khoản
-    .card-body.text-center
-      if(user.avatar)
-        img.rounded-circle.mb-3(
-          src=user.avatar
-          style="width:120px;height:120px;object-fit:cover;"
-        )
-      if(user.fullName)
-        p.mb-1 Họ tên: <b>#{user.fullName}</b>
-      if(user.email)
-        p.mb-1 Email: <b>#{user.email}</b>
-      if(user.phone)
-        p.mb-1 Số điện thoại: <b>#{user.phone}</b>
-      if(role.title)
-        p.mb-0 Phân quyền: <b class="text-primary">#{role.title}</b>
+  .row.mt-5
+    .col-md-6
+      .profile-card
+        .text-center
+          if(user.avatar)
+            img.avatar(src=user.avatar)
+
+          h4.mt-3 #{user.fullName}
+
+          if(role.title)
+            span.badge.bg-primary #{role.title}
+
+          .mt-3
+            if(user.email)
+              p
+                i.fas.fa-envelope.me-2
+                | #{user.email}
+
+            if(user.phone)
+              p
+                i.fas.fa-phone.me-2
+                | #{user.phone}
