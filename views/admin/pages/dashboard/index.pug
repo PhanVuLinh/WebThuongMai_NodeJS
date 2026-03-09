@@ -1,10 +1,13 @@
 extends ../../layouts/default.pug
 
 block main
-  h3.fw-bold.mb-4.text-dark
-    i.fas.fa-chart-line.me-2.text-primary
-    Trang tổng quan
 
+  .d-flex.align-items-center.justify-content-between.mb-4
+    h3.fw-bold.text-dark
+      i.fas.fa-chart-line.me-2.text-primary
+      | Trang tổng quan
+
+  // ===== STATISTICS =====
   .row.g-4
 
     .col-xl-3.col-md-6
@@ -14,10 +17,10 @@ block main
         .info
           span.title Danh mục sản phẩm
           h2 #{statistic.categoryProduct.total}
-          p
-            span.text-success #{statistic.categoryProduct.active} hoạt động
+          p.mb-0
+            span.text-success.fw-semibold #{statistic.categoryProduct.active} hoạt động
             |  /
-            span.text-danger #{statistic.categoryProduct.inactive} dừng
+            span.text-danger.fw-semibold #{statistic.categoryProduct.inactive} dừng
 
     .col-xl-3.col-md-6
       .stat-card
@@ -26,10 +29,10 @@ block main
         .info
           span.title Sản phẩm
           h2 #{statistic.product.total}
-          p
-            span.text-success #{statistic.product.active} hoạt động
+          p.mb-0
+            span.text-success.fw-semibold #{statistic.product.active} hoạt động
             |  /
-            span.text-danger #{statistic.product.inactive} dừng
+            span.text-danger.fw-semibold #{statistic.product.inactive} dừng
 
     .col-xl-3.col-md-6
       .stat-card
@@ -38,10 +41,10 @@ block main
         .info
           span.title Admin
           h2 #{statistic.account.total}
-          p
-            span.text-success #{statistic.account.active} hoạt động
+          p.mb-0
+            span.text-success.fw-semibold #{statistic.account.active} hoạt động
             |  /
-            span.text-danger #{statistic.account.inactive} dừng
+            span.text-danger.fw-semibold #{statistic.account.inactive} dừng
 
     .col-xl-3.col-md-6
       .stat-card
@@ -50,30 +53,34 @@ block main
         .info
           span.title Client
           h2 #{statistic.user.total}
-          p
-            span.text-success #{statistic.user.active} hoạt động
+          p.mb-0
+            span.text-success.fw-semibold #{statistic.user.active} hoạt động
             |  /
-            span.text-danger #{statistic.user.inactive} dừng
+            span.text-danger.fw-semibold #{statistic.user.inactive} dừng
 
+
+  // ===== PROFILE =====
   .row.mt-5
-    .col-md-6
-      .profile-card
-        .text-center
-          if(user.avatar)
-            img.avatar(src=user.avatar)
+    .col-lg-4
 
-          h4.mt-3 #{user.fullName}
+      .profile-card.text-center
 
-          if(role.title)
-            span.badge.bg-primary #{role.title}
+        if(user.avatar)
+          img.avatar(src=user.avatar)
 
-          .mt-3
-            if(user.email)
-              p
-                i.fas.fa-envelope.me-2
-                | #{user.email}
+        h4.mt-3.mb-1 #{user.fullName}
 
-            if(user.phone)
-              p
-                i.fas.fa-phone.me-2
-                | #{user.phone}
+        if(role.title)
+          span.badge.bg-primary.mb-3 #{role.title}
+
+        .text-start.mt-3
+
+          if(user.email)
+            p.mb-2
+              i.fas.fa-envelope.me-2.text-muted
+              | #{user.email}
+
+          if(user.phone)
+            p.mb-0
+              i.fas.fa-phone.me-2.text-muted
+              | #{user.phone}

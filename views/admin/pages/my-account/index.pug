@@ -1,63 +1,69 @@
 extends ../../layouts/default.pug
 
 block main
-  .container.mt-5
+  .container.py-4
     .row.justify-content-center
-      .col-md-8
-        .card.shadow-sm
-          .card-body
+      .col-lg-6
 
-            h3.mb-4.text-center Thông tin cá nhân
+        .card.border-0.shadow.rounded-4
+          .card-body.p-4
 
+            h3.text-center.fw-bold.mb-4
+              i.fas.fa-user-circle.me-2.text-primary
+              | Thông tin cá nhân
+
+            // Avatar
             .text-center.mb-4
-              if (user.avatar)
-                img.rounded-circle.shadow(
-                  src=user.avatar
-                  width="150"
-                  height="150"
-                  style="object-fit: cover;"
-                )
+              if(user.avatar)
+                img.avatar.shadow(src=user.avatar)
               else
-                img.rounded-circle.shadow(
-                  src="/admin/images/avatar.png"
-                  width="150"
-                  height="150"
-                  style="object-fit: cover;"
-                )
+                img.avatar.shadow(src="/admin/images/avatar.png")
 
+            // Info
             ul.list-group.list-group-flush.mb-4
 
-              if (user.fullName)
-                li.list-group-item
-                  strong Họ tên:
-                  span.ms-2 #{user.fullName}
+              if(user.fullName)
+                li.list-group-item.d-flex.justify-content-between
+                  span
+                    i.fas.fa-user.me-2.text-muted
+                    | Họ tên
+                  span.fw-semibold #{user.fullName}
 
-              if (user.email)
-                li.list-group-item
-                  strong Email:
-                  span.ms-2 #{user.email}
+              if(user.email)
+                li.list-group-item.d-flex.justify-content-between
+                  span
+                    i.fas.fa-envelope.me-2.text-muted
+                    | Email
+                  span #{user.email}
 
-              if (user.phone)
-                li.list-group-item
-                  strong Số điện thoại:
-                  span.ms-2 #{user.phone}
+              if(user.phone)
+                li.list-group-item.d-flex.justify-content-between
+                  span
+                    i.fas.fa-phone.me-2.text-muted
+                    | Số điện thoại
+                  span #{user.phone}
 
-              li.list-group-item
-                strong Trạng thái:
-                span.ms-2
-                  if (user.status === "active")
+              li.list-group-item.d-flex.justify-content-between
+                span
+                  i.fas.fa-toggle-on.me-2.text-muted
+                  | Trạng thái
+                span
+                  if(user.status === "active")
                     span.badge.bg-success Hoạt động
                   else
                     span.badge.bg-danger Dừng hoạt động
 
-              if (role.title)
-                li.list-group-item
-                  strong Phân quyền:
-                  span.ms-2 #{role.title}
+              if(role.title)
+                li.list-group-item.d-flex.justify-content-between
+                  span
+                    i.fas.fa-user-shield.me-2.text-muted
+                    | Phân quyền
+                  span.badge.bg-primary #{role.title}
 
+            // Button
             .text-center
-              a.btn.btn-primary.px-4(
+              a.btn.btn-primary.px-4.rounded-pill(
                 href=`${prefixAdmin}/my-account/edit`
               )
-                i.bi.bi-pencil-square.me-2
+                i.fas.fa-pen.me-2
                 | Chỉnh sửa thông tin

@@ -3,118 +3,130 @@ include ../../mixins/alert.pug
 
 block main
   if(role.permissions.includes("accounts_create"))
-    h1(class="mb-4") Thêm mới tài khoản
+
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h2.fw-bold.text-primary
+        i.fa-solid.fa-user-plus.me-2
+        | Thêm mới tài khoản
 
     +alert-error(5000)
 
-    form(
-      action=`${prefixAdmin}/accounts/create`
-      method="POST"
-      enctype="multipart/form-data"
-    )
-      // Họ tên
-      div(class="mb-3")
-        label(for="fullName") Họ tên *
-        input(
-          type="text"
-          class="form-control"
-          id="fullName"
-          name="fullName"
-          required
+    .card.shadow-sm.border-0
+      .card-body
+
+        form(
+          action=`${prefixAdmin}/accounts/create`
+          method="POST"
+          enctype="multipart/form-data"
         )
 
-      // Email
-      div(class="mb-3")
-        label(for="email") Email *
-        input(
-          type="email"
-          class="form-control"
-          id="email"
-          name="email"
-          required
-        )
+          .row
 
-      // Mật khẩu
-      div(class="mb-3")
-        label(for="password") Mật khẩu *
-        input(
-          type="password"
-          class="form-control"
-          id="password"
-          name="password"
-          required
-        )
+            // LEFT
+            .col-md-8
 
-      // Số điện thoại
-      div(class="mb-3")
-        label(for="phone") Số điện thoại
-        input(
-          type="text"
-          class="form-control"
-          id="phone"
-          name="phone"
-        )
+              // Họ tên
+              .mb-3
+                label.form-label(for="fullName") Họ tên *
+                input.form-control(
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  required
+                )
 
-      // Ảnh đại diện
-      div(class="mb-3")
-        label(for="avatar") Ảnh đại diện
-        input(
-          type="file"
-          class="form-control"
-          id="avatar"
-          name="avatar"
-          accept="image/*"
-          upload-image-input
-        )
-        img(
-          src=""
-          class="image-preview"
-          upload-image-preview
-        )
+              // Email
+              .mb-3
+                label.form-label(for="email") Email *
+                input.form-control(
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                )
 
-      // Phân quyền
-      div(class="mb-3")
-        label(for="role_id") Phân quyền
-        select(
-          name="role_id"
-          id="role_id"
-          class="form-control"
-        )
-          option(disabled selected) -- Chọn --
-          each item in roles
-            option(value=item._id) #{item.title}
+              // Mật khẩu
+              .mb-3
+                label.form-label(for="password") Mật khẩu *
+                input.form-control(
+                  type="password"
+                  id="password"
+                  name="password"
+                  required
+                )
 
-      // Trạng thái
-      div(class="mb-3 form-check form-check-inline")
-        input(
-          type="radio"
-          class="form-check-input"
-          id="statusActive"
-          name="status"
-          value="active"
-          checked
-        )
-        label(
-          for="statusActive"
-          class="form-check-label"
-        ) Hoạt động
+              // Số điện thoại
+              .mb-3
+                label.form-label(for="phone") Số điện thoại
+                input.form-control(
+                  type="text"
+                  id="phone"
+                  name="phone"
+                )
 
-      div(class="mb-3 form-check form-check-inline")
-        input(
-          type="radio"
-          class="form-check-input"
-          id="statusInActive"
-          name="status"
-          value="inactive"
-        )
-        label(
-          for="statusInActive"
-          class="form-check-label"
-        ) Dừng hoạt động
+              // Phân quyền
+              .mb-3
+                label.form-label(for="role_id") Phân quyền
+                select.form-select(
+                  name="role_id"
+                  id="role_id"
+                )
+                  option(disabled selected) -- Chọn --
+                  each item in roles
+                    option(value=item._id) #{item.title}
 
-      // Submit
-      div(class="mb-3")
-        button(
-          type="submit"
-          class="btn btn-primary"
-        ) Tạo mới
+              // Trạng thái
+              .mb-3
+                label.form-label Trạng thái
+                br
+
+                .form-check.form-check-inline
+                  input.form-check-input(
+                    type="radio"
+                    id="statusActive"
+                    name="status"
+                    value="active"
+                    checked
+                  )
+                  label.form-check-label(for="statusActive") Hoạt động
+
+                .form-check.form-check-inline
+                  input.form-check-input(
+                    type="radio"
+                    id="statusInActive"
+                    name="status"
+                    value="inactive"
+                  )
+                  label.form-check-label(for="statusInActive") Dừng hoạt động
+
+
+            // RIGHT (Avatar)
+            .col-md-4
+
+              .mb-3(upload-image)
+                label.form-label(for="avatar") Ảnh đại diện
+
+                input.form-control(
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  accept="image/*"
+                  upload-image-input
+                )
+
+                img.mt-3.rounded.shadow-sm(
+                  src=""
+                  width="120"
+                  height="120"
+                  style="object-fit:cover"
+                  class="image-preview"
+                  upload-image-preview
+                )
+
+          hr
+
+          button.btn.btn-success.px-4(
+            type="submit"
+          )
+            i.fa-solid.fa-user-plus.me-1
+            | Tạo tài khoản

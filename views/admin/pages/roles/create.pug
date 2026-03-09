@@ -2,33 +2,56 @@ extends ../../layouts/default.pug
 
 block main
   if(role.permissions.includes("roles_create"))
-    h1(class="mb-4") Thêm mới nhóm quyền
 
-    form(
-      action=`${prefixAdmin}/roles/create`
-      method="POST"
-    )
-      div(class="mb-3")
-        label(for="title") Tiêu đề
-        input(
-          type="text"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        )
+    .d-flex.align-items-center.mb-4
+      h2.fw-bold.text-success
+        i.fa-solid.fa-user-plus.me-2
+        | Thêm mới nhóm quyền
 
-      div(class="mb-3")
-        label(for="desc") Mô tả
-        input(
-          type="text"
-          class="form-control"
-          id="desc"
-          name="description"
-        )
+    .row.justify-content-center
+      .col-lg-6
 
-      div(class="mb-3")
-        button(
-          type="submit"
-          class="btn btn-primary"
-        ) Tạo mới
+        .card.shadow-sm.border-0
+          .card-body.p-4
+
+            form(
+              action=`${prefixAdmin}/roles/create`
+              method="POST"
+            )
+
+              .mb-4
+                label.form-label.fw-semibold(for="title")
+                  i.fa-solid.fa-tag.me-1
+                  | Tiêu đề
+                input.form-control(
+                  type="text"
+                  id="title"
+                  name="title"
+                  required
+                  placeholder="Nhập tên nhóm quyền..."
+                )
+
+              .mb-4
+                label.form-label.fw-semibold(for="desc")
+                  i.fa-solid.fa-align-left.me-1
+                  | Mô tả
+                input.form-control(
+                  type="text"
+                  id="desc"
+                  name="description"
+                  placeholder="Mô tả ngắn về nhóm quyền..."
+                )
+
+              .d-flex.justify-content-between
+
+                a.btn.btn-secondary(
+                  href=`${prefixAdmin}/roles`
+                )
+                  i.fa-solid.fa-arrow-left.me-1
+                  | Quay lại
+
+                button.btn.btn-success(
+                  type="submit"
+                )
+                  i.fa-solid.fa-plus.me-1
+                  | Tạo mới

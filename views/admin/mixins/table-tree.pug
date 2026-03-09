@@ -2,19 +2,22 @@ mixin table-tree(items, level = 1)
 
   each item, index in items
 
-    - const prefix = Array(level + 1).join("› ")
+    - const prefix = Array(level + 1).join("- ")
 
     tr
 
       td
         input(type="checkbox" name="id" value=item.id)
 
-      td.fw-semibold #{item.index}
+      td #{item.index}
 
       td
-        img.category-img(
+        img.rounded.shadow-sm(
           src=item.thumbnail
           alt=item.title
+          width="80"
+          height="80"
+          style="object-fit:cover"
         )
 
       td
@@ -36,23 +39,23 @@ mixin table-tree(items, level = 1)
       td
         .action-buttons
 
-          a.btn.btn-sm.btn-view(
+          a.btn.btn-sm.btn-view.me-1(
             href=`${prefixAdmin}/products-category/detail/${item.id}`
           )
             i.fas.fa-eye
 
           if(role.permissions.includes("products-category_edit"))
-            a.btn.btn-sm.btn-edit(
+            a.btn.btn-sm.btn-edit.me-1(
               href=`${prefixAdmin}/products-category/edit/${item.id}`
             )
               i.fas.fa-pen
 
-          if(role.permissions.includes("products-category_deleted"))
-            button.btn.btn-sm.btn-delete(
+          if(role.permissions.includes("products-category_delete"))
+            button.btn.btn-sm.btn-delete.me-1(
               button-delete
               data-id=item.id
             )
-              i.fas.fa-trash
+              i.fa-solid.fa-trash
 
     if item.children && item.children.length > 0
       +table-tree(item.children, level + 1)

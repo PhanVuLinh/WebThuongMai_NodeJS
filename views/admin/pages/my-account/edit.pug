@@ -2,13 +2,16 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 
 block main
-  .container.mt-5
+  .container.py-4
     .row.justify-content-center
-      .col-md-8
-        .card.shadow-sm
-          .card-body
+      .col-lg-7
 
-            h3.mb-4.text-center Cập nhật thông tin cá nhân
+        .card.border-0.shadow.rounded-4
+          .card-body.p-4
+
+            h3.text-center.fw-bold.mb-4
+              i.fas.fa-user-edit.me-2.text-primary
+              | Cập nhật thông tin cá nhân
 
             +alert-success(5000)
             +alert-error(5000)
@@ -21,7 +24,9 @@ block main
 
               // Họ tên
               .mb-3
-                label.form-label(for="fullName") Họ tên *
+                label.form-label.fw-semibold(for="fullName")
+                  i.fas.fa-user.me-1
+                  | Họ tên *
                 input.form-control(
                   type="text"
                   id="fullName"
@@ -32,7 +37,9 @@ block main
 
               // Email
               .mb-3
-                label.form-label(for="email") Email *
+                label.form-label.fw-semibold(for="email")
+                  i.fas.fa-envelope.me-1
+                  | Email *
                 input.form-control(
                   type="email"
                   id="email"
@@ -41,9 +48,11 @@ block main
                   value=user.email
                 )
 
-              // Mật khẩu (nếu muốn đổi)
+              // Mật khẩu
               .mb-3
-                label.form-label(for="password") Mật khẩu mới
+                label.form-label.fw-semibold(for="password")
+                  i.fas.fa-lock.me-1
+                  | Mật khẩu mới
                 input.form-control(
                   type="password"
                   id="password"
@@ -53,7 +62,9 @@ block main
 
               // Số điện thoại
               .mb-3
-                label.form-label(for="phone") Số điện thoại
+                label.form-label.fw-semibold(for="phone")
+                  i.fas.fa-phone.me-1
+                  | Số điện thoại
                 input.form-control(
                   type="text"
                   id="phone"
@@ -62,28 +73,26 @@ block main
                 )
 
               // Avatar
-              .mb-4
-                div(
-                  class="form-group"
-                  upload-image
+              .mb-4(upload-image)
+                label.form-label.fw-semibold
+                  i.fas.fa-image.me-1
+                  | Avatar
+
+                input.form-control(
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  accept="image/*"
+                  upload-image-input
                 )
-                  label.form-label Avatar
-                  input.form-control(
-                    type="file"
-                    class="form-control-file"
-                    id="avatar"
-                    name="avatar"
-                    accept="image/*"
-                    upload-image-input
-                  )
-                  img(
+
+                .mt-3.text-center
+                  img.image-preview.rounded-circle.shadow(
                     src=user.avatar
-                    class="image-preview"
-                    upload-image-preview 
+                    upload-image-preview
                   )
 
-              div(class="form-control")
-                button(
-                  type="submit"
-                  class="btn btn-primary"
-                ) Cập nhật
+              .d-grid
+                button.btn.btn-primary.btn-lg.rounded-pill(type="submit")
+                  i.fas.fa-save.me-2
+                  | Cập nhật

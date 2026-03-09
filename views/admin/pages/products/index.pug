@@ -91,7 +91,9 @@ block main
                   img.rounded.shadow-sm(
                     src=item.thumbnail
                     alt=item.title
-                    width="60"
+                    width="80"
+                    height="80"
+                    style="object-fit:cover"
                   )
 
                 td.fw-semibold
@@ -114,6 +116,7 @@ block main
 
                     if(item.status == "active")
                       button.badge.status-active(
+                        type="button"
                         data-status=item.status
                         data-id=item.id
                         button-change-status
@@ -121,6 +124,7 @@ block main
 
                     else
                       button.badge.status-stop(
+                        type="button"
                         data-status=item.status
                         data-id=item.id
                         button-change-status
@@ -129,9 +133,9 @@ block main
                   else
 
                     if(item.status == "active")
-                      span.badge.bg-success Hoạt động
+                      span.badge.status-active Hoạt động
                     else
-                      span.badge.bg-secondary Dừng
+                      span.badge.status-stop Dừng
 
                 td.small
                   div #{item.accountFullName}

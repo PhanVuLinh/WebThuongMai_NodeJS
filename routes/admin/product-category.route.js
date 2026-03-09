@@ -10,7 +10,11 @@ const controller = require("../../controllers/admin/product-category.controller"
 
 router.get("/", controller.index);
 
-router.get("/create", controller.create); // giao điện thêm mới danh mục 
+router.patch('/change-status/:status/:id', controller.changeStatus);
+router.patch('/change-multi', controller.changeMulti);
+router.delete('/delete/:id', controller.deleteItem);
+
+router.get("/create", controller.create);
 
 router.post(
   "/create",
@@ -19,7 +23,7 @@ router.post(
   controller.createPost
 );
 
-router.get("/edit/:id", controller.edit); // giao điện chỉnh sửa danh mục 
+router.get("/edit/:id", controller.edit);
 
 router.patch(
   "/edit/:id",

@@ -34,6 +34,7 @@ module.exports.createPost = async (req, res) => {
   const record = new Role(req.body);
   await record.save();
 
+  req.flash("success", `Tạo thành công nhóm quyền`);
   res.redirect(`${systemConfig.prefixAdmin}/roles`);
 };
 
@@ -92,5 +93,14 @@ module.exports.permissionsPatch = async (req, res) => {
   }
 
   req.flash("success","Phân quyền thành công");
+  res.redirect(req.get('Referer'));
+};
+
+// [DELETE] /admin/roles/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+
+  await Role.updateOne({_id:id}, {deleted: true});
+  req.flash("success", "Xóa quyền thành công");
   res.redirect(req.get('Referer'));
 };

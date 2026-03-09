@@ -7,113 +7,153 @@ include ../../mixins/form-change-multi.pug
 
 block main  
   if(role.permissions.includes("accounts_view"))
+
     +alert-success(5000)
     +alert-error(5000)
-    h1(class="mb-4") Danh sách tài khoản
 
-    .card.mb-3
-      .card-header Bộ lọc và Tìm kiếm
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h2.fw-bold.text-primary
+        i.fa-solid.fa-users.me-2
+        | Danh sách tài khoản
+
+      if(role.permissions.includes("accounts_create"))
+        a.btn.btn-success.shadow-sm(
+          href=`${prefixAdmin}/accounts/create`
+        )
+          i.fa-solid.fa-user-plus.me-1
+          | Thêm tài khoản
+
+    // FILTER
+    .card.shadow-sm.border-0.mb-4
+      .card-header.bg-light.fw-bold
+        i.fa-solid.fa-filter.me-2
+        | Bộ lọc & Tìm kiếm
       .card-body
-        .row
-          .col-6
+        .row.g-3
+          .col-md-6
             +filter-status(filterStatus)
-          .col-6
+          .col-md-6
             +search(keyword)
 
-    .card.mb-3 
-      .card-header Danh sách 
-      .card-body 
-        .row 
-          .col-8 
-            +form-change-multi(`${prefixAdmin}/accounts/change-multi?_method=PATCH`, false)
-          .col-4
-            if(role.permissions.includes("accounts_create"))
-              a(
-                href=`${prefixAdmin}/accounts/create`
-                class="btn btn-outline-success"
-              ) + Thêm mới
+    // TABLE
+    .card.shadow-sm.border-0
+      .card-header.bg-white.fw-bold
+        i.fa-solid.fa-table.me-2
+        | Danh sách tài khoản
 
-        table(
-          class="table table-hover table-sm align-middle" 
-          checkbox-multi
-        )
-          thead
+      .card-body
+
+        .row.mb-3
+          .col-md-8
+            +form-change-multi(`${prefixAdmin}/accounts/change-multi?_method=PATCH`, false)
+
+        table.table.table-hover.align-middle(checkbox-multi)
+
+          thead.table-light
             tr
-              th 
+              th
                 input(type="checkbox" name="checkall")
               th STT
-              th Hình ảnh
+              th Ảnh
               th Họ tên
-              th Phân quyên
+              th Quyền
               th Email
               th Trạng thái
-              th Hành động
+              th.text-center Hành động
+
           tbody
-            if (records.length > 0)
+            if(records.length > 0)
+
               each item, index in records
                 tr
-                  td 
+
+                  td
                     input(
                       type="checkbox"
                       name="id"
                       value=item.id
                     )
-                  td #{pagination.limitItem*(pagination.currentPage - 1) + (index + 1)}
-                  td 
-                    img(src=item.avatar, alt=item.fullName width="100px" height="auto")
-                  td #{item.fullName}
-                  if(item.role)
-                    td #{item.role.title}
-                  else
-                    td Chưa có
-                  td #{item.email}
-                  td 
-                    if(role.permissions.includes("accounts_edit"))
-                      if(item.status == "active")
-                        button(
-                          data-status=item.status
-                          data-id=item.id
-                          button-change-status
-                          class="badge bg-success rounded-pill"
-                        ) Hoạt động
-                      else
-                        button(
-                          data-status=item.status
-                          data-id=item.id
-                          button-change-status
-                          class="badge bg-danger rounded-pill"
-                        ) Dừng hoạt động
-                    else 
-                      if(item.status == "active")
-                        button(
-                          class="badge bg-success rounded-pill"
-                        ) Hoạt động
-                      else
-                        button(
-                          class="badge bg-danger rounded-pill"
-                        ) Dừng hoạt động
+
+                  td.fw-bol #{pagination.limitItem*(pagination.currentPage - 1) + (index + 1)}
+
                   td
-                    a(
-                      class="btn btn-secondary btn-sm"
+                    img.rounded.shadow-sm(
+                      src=item.avatar
+                      alt=item.fullName
+                      width="80"
+                      height="80"
+                      style="object-fit:cover"
+                    )
+                  
+
+                  td.fw-semibold
+                    | #{item.fullName}
+
+                  if(item.role)
+                    td
+                      span.badge.status-info.text-dark
+                        | #{item.role.title}
+                  else
+                    td
+                      span.badge.bg-secondary
+                        | Chưa có
+
+                  td.small
+                    | #{item.email}
+
+                  td
+                    if(role.permissions.includes("accounts_edit"))
+
+                      if(item.status == "active")
+                        button.badge.status-active(
+                          data-status=item.status
+                          data-id=item.id
+                          button-change-status
+                        ) Hoạt động
+
+                      else
+                        button.badge.status-stop(
+                          data-status=item.status
+                          data-id=item.id
+                          button-change-status
+                        ) Dừng
+
+                    else
+
+                      if(item.status == "active")
+                        span.badge.bg-success Hoạt động
+                      else
+                        span.badge.bg-secondary Dừng
+
+                  td.text-center
+
+                    a.btn.btn-sm.btn-primary.me-1(
                       href=`${prefixAdmin}/accounts/detail/${item.id}`
-                    ) Chi tiết
-                    if(role.permissions.includes("accounts_edit")) 
-                      a(
-                        class="btn btn-warning btn-sm ms-1"
+                    )
+                      i.fa-solid.fa-eye
+
+                    if(role.permissions.includes("accounts_edit"))
+                      a.btn.btn-sm.btn-warning.me-1(
                         href=`${prefixAdmin}/accounts/edit/${item.id}`
-                      ) Sửa
+                      )
+                        i.fa-solid.fa-pen
+
                     if(role.permissions.includes("accounts_delete"))
-                      button.btn.btn-danger.btn-sm.ms-1(
+                      button.btn.btn-sm.btn-danger(
                         button-delete
-                        data-id = item.id
-                      )  Xóa
+                        data-id=item.id
+                      )
+                        i.fa-solid.fa-trash
+
             else
               tr
-                td(colspan="4" class="text-center")
-                |  Chưa có bất kì tài khoản Admin nào 
+                td.text-center(colspan="8")
+                  span.text-muted
+                    i.fa-solid.fa-circle-info.me-1
+                    | Chưa có tài khoản Admin nào
 
-    +pagination(pagination)
-
+    .mt-3
+      +pagination(pagination)
 
     form(
       action=""
@@ -129,5 +169,4 @@ block main
       data-path=`${prefixAdmin}/accounts/delete`
     )
 
-
-    script(src="/admin/js/products.js") 
+    script(src="/admin/js/products.js")

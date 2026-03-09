@@ -1,3 +1,11 @@
+// Khôi phục vị trí cuộn trang sau khi tải lại toàn bộ trang
+const scrollStorageKey = "productsScrollY";
+const scrollY = sessionStorage.getItem(scrollStorageKey);
+if (scrollY) {
+  window.scrollTo(0, Number(scrollY));
+  sessionStorage.removeItem(scrollStorageKey);
+}
+
 //change Status
 const buttonsChangeStatus = document.querySelectorAll("[button-change-status]");
 if (buttonsChangeStatus.length > 0) {
@@ -9,6 +17,9 @@ if (buttonsChangeStatus.length > 0) {
       const id = button.getAttribute("data-id");
 
       let statusChange = statusCurrent == "active" ? "inactive" : "active";
+
+      // Giữ nguyên vị trí cuộn trang khi trang được tải lại toàn bộ.
+      sessionStorage.setItem(scrollStorageKey, window.scrollY);
 
       const action = path + `/${statusChange}/${id}?_method=PATCH`;
       formChangeStatus.action = action;

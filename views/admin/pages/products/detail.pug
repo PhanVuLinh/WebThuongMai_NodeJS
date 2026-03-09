@@ -2,49 +2,73 @@ extends ../../layouts/default.pug
 
 block main
   .container.mt-4
-    .product-wrapper
-      if (product.title)
-        h1.product-title #{product.title}
 
-      .product-body
-        .product-left
-          if (product.thumbnail)
-            img.product-image(src=product.thumbnail)
+    .card.shadow-sm.border-0
+      .card-body
 
-        .product-right
-          if (product.price)
-            div.product-price #{product.price}$
+        if (product.title)
+          h2.fw-bold.text-primary.mb-4
+            i.fa-solid.fa-box-open.me-2
+            | #{product.title}
 
-          if (product.discountPercentage)
-            div.product-discount
-              | Giảm giá:
-              span #{product.discountPercentage}%
+        .row
 
-          if (product.stock)
-            div.product-info
-              span.label Còn lại:
-              span.value #{product.stock}
+          // LEFT IMAGE
+          .col-md-5.text-center
+            if (product.thumbnail)
+              img.rounded.shadow-sm.img-fluid(
+                src=product.thumbnail
+                style="max-height:350px;object-fit:cover"
+              )
 
-          if (product.position)
-            div.product-info
-              span.label Vị trí:
-              span.value #{product.position}
+          // RIGHT INFO
+          .col-md-7
 
-          if (product.status)
-            div.product-info
-              span.label Trạng thái:
-              if (product.status === "active")
-                span.badge.bg-success Hoạt động
-              else
-                span.badge.bg-danger Dừng hoạt động
+            if (product.price)
+              .mb-3
+                span.fs-4.fw-bold.text-danger
+                  | #{product.price}$
 
-      if (product.description)
-        .product-description
-          h4 Mô tả sản phẩm
-          p !{product.description}
-      if(role.permissions.includes("products_edit"))
-        a(
-          href=`${prefixAdmin}/products/edit/${product.id}`
-          class="btn btn-warning "
-        ) Chỉnh sửa
+            if (product.discountPercentage)
+              .mb-3
+                span.badge.bg-warning.text-dark.fs-6
+                  | Giảm #{product.discountPercentage}%
+
+            if (product.stock)
+              .mb-2
+                span.fw-semibold Còn lại:
+                span.ms-2 #{product.stock}
+
+            if (product.position)
+              .mb-2
+                span.fw-semibold Vị trí:
+                span.ms-2 #{product.position}
+
+            if (product.status)
+              .mb-3
+                span.fw-semibold Trạng thái:
+                if (product.status === "active")
+                  span.badge.bg-success.ms-2 Hoạt động
+                else
+                  span.badge.bg-danger.ms-2 Dừng hoạt động
+
+            if(role.permissions.includes("products_edit"))
+              a.btn.btn-warning.mt-3(
+                href=`${prefixAdmin}/products/edit/${product.id}`
+              )
+                i.fa-solid.fa-pen.me-1
+                | Chỉnh sửa
+
+        // DESCRIPTION
+        if (product.description)
+          hr
+
+          .mt-3
+            h4.fw-bold.mb-3
+              i.fa-solid.fa-align-left.me-2
+              | Mô tả sản phẩm
+
+            .product-description
+              p !{product.description}
+
   script(src="/admin/js/product.js")
