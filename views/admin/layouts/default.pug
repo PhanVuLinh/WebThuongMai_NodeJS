@@ -32,6 +32,9 @@ html
       script(
         src="/admin/js/script.js"
       )
-    else 
-      h1 Banj khong cos quyen truy caption 
+    else
+      .container.mt-5
+        .alert.alert-warning(role="alert")
+          strong Bạn không có quyền truy cập trang này.
+          |  Vui lòng liên hệ quản trị viên để cấp quyền hoặc thử đăng nhập lại.
     

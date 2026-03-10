@@ -48,6 +48,19 @@ block main
                     td.text-center
                       input(type="text" value=item.id)
 
+                // Tổng quan
+                tr.section-title
+                  td(colspan="100%")
+                    i.fa-solid.fa-user-shield.me-2
+                    | Tổng quan
+
+                tr(data-name="dashboard_view")
+                  td.ps-4 Xem
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
+
                 // Danh mục sản phẩm
                 tr.section-title
                   td(colspan="100%")
@@ -110,6 +123,54 @@ block main
                       input.permission(type="checkbox")
 
 
+                // Tài khoản
+                tr.section-title
+                  td(colspan="100%")
+                    i.fa-solid.fa-user-shield.me-2
+                    | Tài khoản
+
+                tr(data-name="accounts_view")
+                  td.ps-4 Xem
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
+                tr(data-name="accounts_create")
+                  td.ps-4 Thêm mới
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
+                tr(data-name="accounts_edit")
+                  td.ps-4 Chỉnh sửa
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
+                tr(data-name="accounts_delete")
+                  td.ps-4 Xóa
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
+                //Quản lý đơn hàng
+                tr.section-title
+                  td(colspan="100%")
+                    i.fa-solid.fa-user-shield.me-2
+                    | Quản lý đơn hàng
+
+                tr(data-name="orders_view")
+                  td.ps-4 Xem
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+                    
+                tr(data-name="orders_delete")
+                  td.ps-4 Xóa
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
                 // Nhóm quyền
                 tr.section-title
                   td(colspan="100%")
@@ -147,38 +208,7 @@ block main
                       input.permission(type="checkbox")
 
 
-                // Tài khoản
-                tr.section-title
-                  td(colspan="100%")
-                    i.fa-solid.fa-user-shield.me-2
-                    | Tài khoản
-
-                tr(data-name="accounts_view")
-                  td.ps-4 Xem
-                  each item in records
-                    td.text-center
-                      input.permission(type="checkbox")
-
-                tr(data-name="accounts_create")
-                  td.ps-4 Thêm mới
-                  each item in records
-                    td.text-center
-                      input.permission(type="checkbox")
-
-                tr(data-name="accounts_edit")
-                  td.ps-4 Chỉnh sửa
-                  each item in records
-                    td.text-center
-                      input.permission(type="checkbox")
-
-                tr(data-name="accounts_delete")
-                  td.ps-4 Xóa
-                  each item in records
-                    td.text-center
-                      input.permission(type="checkbox")
-
-
-                // Tài khoản
+                // Cài đặt chung
                 tr.section-title
                   td(colspan="100%")
                     i.fa-solid.fa-user-shield.me-2
@@ -195,7 +225,7 @@ block main
                   each item in records
                     td.text-center
                       input.permission(type="checkbox")
-                      
+
     form(
       id="form-change-permissions"
       method="POST"

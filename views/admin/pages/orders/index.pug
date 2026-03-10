@@ -1,66 +1,66 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main
-  .container-fluid
-    +alert-success(5000)
-    +alert-error(5000)
-    h2.fw-bold.mb-4
-      i.fas.fa-shopping-cart.me-2.text-primary
-      | Quản lý đơn hàng
+  if(role.permissions.includes("orders_view"))
+    .container-fluid
+      +alert-success(5000)
+      +alert-error(5000)
+      h2.fw-bold.mb-4
+        i.fas.fa-shopping-cart.me-2.text-primary
+        | Quản lý đơn hàng
 
-    .card.admin-card
-      .card-body
+      .card.admin-card
+        .card-body
 
-        table.table.admin-table.align-middle
-          thead
-            tr
-              th #
-              th Khách hàng
-              th Số điện thoại
-              th Sản phẩm
-              th Tổng tiền
-              th Ngày đặt
-              th Hành động
-
-          tbody
-            if(records.length > 0)
-              each item, index in records
-                tr
-                  td #{index + 1}
-
-                  td #{item.userInfo.fullName}
-
-                  td #{item.userInfo.phone}
-
-                  td #{item.totalQuantity} sản phẩm
-
-                  td.text-danger.fw-bold
-                    | #{item.total.toLocaleString()} đ
-
-                  td #{item.createdAt.toLocaleDateString()}
-
-                  td
-                    a.btn.btn-view.btn-sm.me-1(
-                      href=`${prefixAdmin}/orders/detail/${item._id}`
-                    )
-                      i.fas.fa-eye 
-
-                    button.btn.btn-sm.btn-danger(
-                      button-delete
-                      data-id=item._id
-                    )
-                      i.fa-solid.fa-trash
-
-            else
+          table.table.admin-table.align-middle
+            thead
               tr
-                td(colspan="7" class="text-center")
-                  | Chưa có đơn hàng nào
+                th #
+                th Khách hàng
+                th Số điện thoại
+                th Sản phẩm
+                th Tổng tiền
+                th Ngày đặt
+                th Hành động
 
-    form(
-      action=""
-      method="POST"
-      id="form-delete-item"
-      data-path=`${prefixAdmin}/orders/delete`
-    )
+            tbody
+              if(records.length > 0)
+                each item, index in records
+                  tr
+                    td #{index + 1}
 
-    script(src="/admin/js/products.js")
+                    td #{item.userInfo.fullName}
+
+                    td #{item.userInfo.phone}
+
+                    td #{item.totalQuantity} sản phẩm
+
+                    td.text-danger.fw-bold
+                      | #{item.total.toLocaleString()} đ
+
+                    td #{item.createdAt.toLocaleDateString()}
+
+                    td
+                      a.btn.btn-view.btn-sm.me-1(
+                        href=`${prefixAdmin}/orders/detail/${item._id}`
+                      )
+                        i.fas.fa-eye 
+                      if(role.permissions.includes("orders_delete"))
+                        button.btn.btn-sm.btn-danger(
+                          button-delete
+                          data-id=item._id
+                        )
+                          i.fa-solid.fa-trash
+
+              else
+                tr
+                  td(colspan="7" class="text-center")
+                    | Chưa có đơn hàng nào 
+      form(
+        action=""
+        method="POST"
+        id="form-delete-item"
+        data-path=`${prefixAdmin}/orders/delete`
+      )
+
+      script(src="/admin/js/products.js")

@@ -2,10 +2,11 @@
   .inner-menu
     ul
 
-      li
-        a(href=`${prefixAdmin}/dashboard`)
-          i.fa-solid.fa-chart-line
-          span Tổng quan
+      if(role.permissions.includes("dashboard_view"))
+        li
+          a(href=`${prefixAdmin}/dashboard`)
+            i.fa-solid.fa-chart-line
+            span Tổng quan
 
       if(role.permissions.includes("products-category_view"))
         li
@@ -25,11 +26,11 @@
             i.fa-solid.fa-users
             span Danh sách tài khoản
 
-      
-      li
-        a(href=`${prefixAdmin}/orders`)
-          i.fas.fa-clipboard-list
-          span  Quản lý đơn hàng
+      if(role.permissions.includes("orders_view"))
+        li
+          a(href=`${prefixAdmin}/orders`)
+            i.fas.fa-clipboard-list
+            span  Quản lý đơn hàng
 
       if(role.permissions.includes("roles_view"))
         li
