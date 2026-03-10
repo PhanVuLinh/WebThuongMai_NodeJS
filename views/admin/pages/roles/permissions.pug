@@ -177,6 +177,25 @@ block main
                     td.text-center
                       input.permission(type="checkbox")
 
+
+                // Tài khoản
+                tr.section-title
+                  td(colspan="100%")
+                    i.fa-solid.fa-user-shield.me-2
+                    | Cài đặt chung
+
+                tr(data-name="settings_view")
+                  td.ps-4 Xem
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
+                tr(data-name="settings_edit")
+                  td.ps-4 Chỉnh sửa
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+                      
     form(
       id="form-change-permissions"
       method="POST"

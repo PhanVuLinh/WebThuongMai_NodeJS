@@ -2,116 +2,118 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 
 block main
-  .container
+  if(role.permissions.includes("settings_view"))
+    .container
 
-    .d-flex.align-items-center.mb-4
-      h2.fw-bold.text-primary
-        i.fa-solid.fa-gear.me-2
-        | Cài đặt hệ thống
+      .d-flex.align-items-center.mb-4
+        h2.fw-bold.text-primary
+          i.fa-solid.fa-gear.me-2
+          | Cài đặt hệ thống
 
-    .row.justify-content-center
-      .col-lg-9
+      .row.justify-content-center
+        .col-lg-9
 
-        .card.shadow-sm.border-0.rounded-4
-          .card-body.p-5
+          .card.shadow-sm.border-0.rounded-4
+            .card-body.p-5
 
-            +alert-error(5000)
-            +alert-success(5000)
+              +alert-error(5000)
+              +alert-success(5000)
 
-            form(
-              action=`${prefixAdmin}/settings/general?_method=PATCH`
-              method="POST"
-              enctype="multipart/form-data"
-            )
+              form(
+                action=`${prefixAdmin}/settings/general?_method=PATCH`
+                method="POST"
+                enctype="multipart/form-data"
+              )
 
-              .row
+                .row
 
-                // LEFT COLUMN
-                .col-md-7
+                  // LEFT COLUMN
+                  .col-md-7
 
-                  // Website Name
-                  .mb-4
-                    label.form-label.fw-semibold(for="websiteName") Tên website
-                    input.form-control(
-                      type="text"
-                      id="websiteName"
-                      name="websiteName"
-                      value=(settingGeneral ? settingGeneral.websiteName : "")
-                      placeholder="Nhập tên website..."
-                    )
-
-                  // Phone
-                  .mb-4
-                    label.form-label.fw-semibold(for="phone") Số điện thoại
-                    input.form-control(
-                      type="text"
-                      id="phone"
-                      name="phone"
-                      value=(settingGeneral ? settingGeneral.phone : "")
-                      placeholder="Nhập số điện thoại..."
-                    )
-
-                  // Email
-                  .mb-4
-                    label.form-label.fw-semibold(for="email") Email
-                    input.form-control(
-                      type="email"
-                      id="email"
-                      name="email"
-                      value=(settingGeneral ? settingGeneral.email : "")
-                      placeholder="example@gmail.com"
-                    )
-
-                  // Address
-                  .mb-4
-                    label.form-label.fw-semibold(for="address") Địa chỉ
-                    input.form-control(
-                      type="text"
-                      id="address"
-                      name="address"
-                      value=(settingGeneral ? settingGeneral.address : "")
-                      placeholder="Nhập địa chỉ..."
-                    )
-
-                  // Copyright
-                  .mb-4
-                    label.form-label.fw-semibold(for="copyright") Copyright
-                    input.form-control(
-                      type="text"
-                      id="copyright"
-                      name="copyright"
-                      value=(settingGeneral ? settingGeneral.copyright : "")
-                      placeholder="© 2026 Your Company"
-                    )
-
-
-                // RIGHT COLUMN
-                .col-md-5
-
-                  .mb-4(upload-image)
-                    label.form-label.fw-semibold(for="logo") Logo website
-
-                    input.form-control(
-                      type="file"
-                      id="logo"
-                      name="logo"
-                      accept="image/*"
-                      upload-image-input
-                    )
-
-                    .text-center.mt-3
-                      img.rounded.shadow-sm(
-                        src=(settingGeneral ? settingGeneral.logo : "")
-                        style="max-height:160px; object-fit:contain"
-                        upload-image-preview
-                        class="image-preview"
+                    // Website Name
+                    .mb-4
+                      label.form-label.fw-semibold(for="websiteName") Tên website
+                      input.form-control(
+                        type="text"
+                        id="websiteName"
+                        name="websiteName"
+                        value=(settingGeneral ? settingGeneral.websiteName : "")
+                        placeholder="Nhập tên website..."
                       )
 
-              hr.mt-4
+                    // Phone
+                    .mb-4
+                      label.form-label.fw-semibold(for="phone") Số điện thoại
+                      input.form-control(
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        value=(settingGeneral ? settingGeneral.phone : "")
+                        placeholder="Nhập số điện thoại..."
+                      )
 
-              .text-end
-                button.btn.btn-primary.px-4(
-                  type="submit"
-                )
-                  i.fa-solid.fa-floppy-disk.me-1
-                  | Cập nhật cài đặt
+                    // Email
+                    .mb-4
+                      label.form-label.fw-semibold(for="email") Email
+                      input.form-control(
+                        type="email"
+                        id="email"
+                        name="email"
+                        value=(settingGeneral ? settingGeneral.email : "")
+                        placeholder="example@gmail.com"
+                      )
+
+                    // Address
+                    .mb-4
+                      label.form-label.fw-semibold(for="address") Địa chỉ
+                      input.form-control(
+                        type="text"
+                        id="address"
+                        name="address"
+                        value=(settingGeneral ? settingGeneral.address : "")
+                        placeholder="Nhập địa chỉ..."
+                      )
+
+                    // Copyright
+                    .mb-4
+                      label.form-label.fw-semibold(for="copyright") Copyright
+                      input.form-control(
+                        type="text"
+                        id="copyright"
+                        name="copyright"
+                        value=(settingGeneral ? settingGeneral.copyright : "")
+                        placeholder="© 2026 Your Company"
+                      )
+
+
+                  // RIGHT COLUMN
+                  .col-md-5
+
+                    .mb-4(upload-image)
+                      label.form-label.fw-semibold(for="logo") Logo website
+                      
+                      if(role.permissions.includes("settings_edit"))
+                        input.form-control(
+                          type="file"
+                          id="logo"
+                          name="logo"
+                          accept="image/*"
+                          upload-image-input
+                        )
+
+                      .text-center.mt-3
+                        img.rounded.shadow-sm(
+                          src=(settingGeneral ? settingGeneral.logo : "")
+                          style="max-height:160px; object-fit:contain"
+                          upload-image-preview
+                          class="image-preview"
+                        )
+
+                hr.mt-4
+                if(role.permissions.includes("settings_edit"))
+                  .text-end
+                    button.btn.btn-primary.px-4(
+                      type="submit"
+                    )
+                      i.fa-solid.fa-floppy-disk.me-1
+                      | Cập nhật cài đặt
