@@ -37,6 +37,7 @@ module.exports.index = async (req, res) => {
 
 //[POST] /checkout/order
 module.exports.order = async (req, res) => {
+  const userId = res.locals.user.id;
   const cartId = req.cookies.cartId;
   const userInfo = req.body;
 
@@ -67,7 +68,12 @@ module.exports.order = async (req, res) => {
     cart_id: cartId,
     userInfo: userInfo,
     products: products,
+  };
+
+  if (res.locals.user) {
+    orderInfo.user_id = userId;
   }
+
   const order = new Order(orderInfo);
   order.save();
 
@@ -79,7 +85,7 @@ module.exports.order = async (req, res) => {
 
 
 //[GET] /checkout/success/:orderId
-module.exports.success = async (req, res) => {
+module.exports.success = async (req, res) => { 
   const order = await Order.findOne({
     _id: req.params.orderId
   });
