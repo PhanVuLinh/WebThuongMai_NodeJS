@@ -1,0 +1,119 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+  .container-fluid
+
+    h2.fw-bold.mb-4
+      i.fa-solid.fa-newspaper.me-2.text-primary
+      | Thêm bài viết
+
+    .card.admin-card
+      .card-body
+
+        +alert-error(5000)
+        +alert-success(5000)
+
+        form(
+          action=`${prefixAdmin}/blogs/create`
+          method="POST"
+          enctype="multipart/form-data"
+        )
+
+          .row
+
+            // LEFT
+            .col-md-8
+
+              .mb-3
+                label.form-label.fw-semibold Tiêu đề
+                input.form-control(
+                  type="text"
+                  name="title"
+                  placeholder="Nhập tiêu đề bài viết..."
+                  required
+                )
+
+              .mb-3
+                label.form-label.fw-semibold Mô tả ngắn
+                textarea.form-control(
+                  name="description"
+                  rows="3"
+                  placeholder="Mô tả ngắn bài viết..."
+                )
+
+              .mb-3
+                label.form-label.fw-semibold Nội dung
+                textarea.form-control.textarea-mce(
+                  name="content"
+                  rows="10"
+                  placeholder="Nhập nội dung bài viết..."
+                )
+
+            // RIGHT
+            .col-md-4
+
+              // Thumbnail
+              .mb-4(upload-image)
+                label.form-label.fw-semibold Ảnh bài viết
+
+                input.form-control(
+                  type="file"
+                  name="thumbnail"
+                  id="thumbnail"
+                  accept="image/*"
+                  upload-image-input
+                )
+
+                .mt-3.text-center
+                  img.image-preview(
+                    upload-image-preview
+                  )
+
+              // Status
+              .mb-3
+                label.form-label Trạng thái
+                br
+
+                .form-check.form-check-inline
+                  input.form-check-input(
+                    type="radio"
+                    id="statusActive"
+                    name="status"
+                    value="active"
+                    checked
+                  )
+                  label.form-check-label(for="statusActive") Hoạt động
+
+                .form-check.form-check-inline
+                  input.form-check-input(
+                    type="radio"
+                    id="statusInActive"
+                    name="status"
+                    value="inactive"
+                  )
+                  label.form-check-label(for="statusInActive") Dừng hoạt động
+
+              // Position
+              .mb-3
+                label.form-label(for="position") Vị trí
+                input.form-control(
+                  type="number"
+                  id="position"
+                  name="position"
+                  placeholder="Tự động tăng"
+                  min="1"
+                )
+
+          hr
+
+          .text-end
+            a.btn.btn-secondary.me-2(
+              href=`${prefixAdmin}/blogs`
+            )
+              i.fa-solid.fa-arrow-left
+              |  Quay lại
+
+            button.btn.btn-primary
+              i.fa-solid.fa-save.me-1
+              |  Lưu bài viết
