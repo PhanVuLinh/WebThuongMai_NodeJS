@@ -110,7 +110,16 @@ block main
                   | Chưa có bài viết nào
 
     form(
-      id="form-delete-item"
+      action=""
       method="POST"
+      id="form-change-status"
+      data-path=`${prefixAdmin}/blogs/change-status`
+    )
+    form(
+      action=""
+      method="POST"
+      id="form-delete-item"
       data-path=`${prefixAdmin}/blogs/delete`
     )
+
+    script(src="/admin/js/products.js")

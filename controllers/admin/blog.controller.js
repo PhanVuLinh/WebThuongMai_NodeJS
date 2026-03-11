@@ -9,7 +9,7 @@ module.exports.index = async (req, res) => {
 
   const blog = await Blog.find(find);
   res.render("admin/pages/blogs/index", {
-    titlePage: "Tin tức",
+    titlePage: "Bài viết",
     blog: blog
   });
 }
@@ -74,6 +74,16 @@ module.exports.editPost = async (req, res) => {
   } catch (error) {
     req.flash("error", `Cập nhật thất bại`);
   }
+
+  res.redirect(req.get('Referer'));
+}
+
+///[DELETE] /admin/blogs/delete/:id
+module.exports.delete = async (req, res) => {
+  const id = req.params.id;
+  await Blog.updateOne({ _id: id }, { deleted: true });
+
+  req.flash("success", `Đã xóa thành công bài viết`);
 
   res.redirect(req.get('Referer'));
 }
