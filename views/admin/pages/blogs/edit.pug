@@ -5,10 +5,10 @@ block main
   .container-fluid
     +alert-error(5000)
     +alert-success(5000)
-    
+
     h2.fw-bold.mb-4
       i.fa-solid.fa-newspaper.me-2.text-primary
-      | Thêm bài viết
+      | Chỉnh sửa bài viết
 
     .card.admin-card
       .card-body
@@ -17,7 +17,7 @@ block main
         +alert-success(5000)
 
         form(
-          action=`${prefixAdmin}/blogs/create`
+          action=`${prefixAdmin}/blogs/edit/${blog.id}?_method=PATCH`
           method="POST"
           enctype="multipart/form-data"
         )
@@ -33,6 +33,7 @@ block main
                   type="text"
                   name="title"
                   placeholder="Nhập tiêu đề bài viết..."
+                  value=blog.title
                   required
                 )
 
@@ -42,7 +43,7 @@ block main
                   name="description"
                   rows="3"
                   placeholder="Mô tả ngắn bài viết..."
-                )
+                ) #{blog.description}
 
               .mb-3
                 label.form-label.fw-semibold Nội dung
@@ -50,7 +51,7 @@ block main
                   name="content"
                   rows="10"
                   placeholder="Nhập nội dung bài viết..."
-                )
+                ) #{blog.content}
 
             // RIGHT
             .col-md-4
@@ -70,6 +71,7 @@ block main
                 .mt-3.text-center
                   img.image-preview(
                     upload-image-preview
+                    src=blog.thumbnail
                   )
 
               // Status
@@ -83,7 +85,7 @@ block main
                     id="statusActive"
                     name="status"
                     value="active"
-                    checked
+                    checked=(blog.status == 'active' ? true : false)
                   )
                   label.form-check-label(for="statusActive") Hoạt động
 
@@ -93,6 +95,7 @@ block main
                     id="statusInActive"
                     name="status"
                     value="inactive"
+                    checked=(blog.status == 'inactive' ? true : false)
                   )
                   label.form-check-label(for="statusInActive") Dừng hoạt động
 
@@ -105,6 +108,7 @@ block main
                   name="position"
                   placeholder="Tự động tăng"
                   min="1"
+                  value=blog.position
                 )
 
           hr

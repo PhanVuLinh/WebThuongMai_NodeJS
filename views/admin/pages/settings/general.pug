@@ -4,10 +4,12 @@ include ../../mixins/alert.pug
 block main
   if(role.permissions.includes("settings_view"))
     .container
+      +alert-error(5000)
+      +alert-success(5000)
 
       .d-flex.align-items-center.mb-4
-        h2.fw-bold.text-primary
-          i.fa-solid.fa-gear.me-2
+        h3.fw-bold
+          i.fa-solid.fa-gear.me-2.text-primary
           | Cài đặt hệ thống
 
       .row.justify-content-center
@@ -15,9 +17,6 @@ block main
 
           .card.shadow-sm.border-0.rounded-4
             .card-body.p-5
-
-              +alert-error(5000)
-              +alert-success(5000)
 
               form(
                 action=`${prefixAdmin}/settings/general?_method=PATCH`
