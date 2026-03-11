@@ -171,6 +171,37 @@ block main
                     td.text-center
                       input.permission(type="checkbox")
 
+                // Bài viết
+                tr.section-title
+                  td(colspan="100%")
+                    i.fa-solid.fa-user-shield.me-2
+                    | Quản lý bài viết
+
+                tr(data-name="blogs_view")
+                  td.ps-4 Xem
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
+                tr(data-name="blogs_create")
+                  td.ps-4 Thêm mới
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
+                tr(data-name="blogs_edit")
+                  td.ps-4 Chỉnh sửa
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
+                tr(data-name="blogs_delete")
+                  td.ps-4 Xóa
+                  each item in records
+                    td.text-center
+                      input.permission(type="checkbox")
+
+
                 // Nhóm quyền
                 tr.section-title
                   td(colspan="100%")
