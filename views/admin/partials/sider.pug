@@ -32,6 +32,12 @@
             i.fas.fa-clipboard-list
             span  Quản lý đơn hàng
 
+      //- if(role.permissions.includes("orders_view"))
+      li
+        a(href=`${prefixAdmin}/blogs`)
+          i.fas.fa-clipboard-list
+          span  Quản lý bài viết
+
       if(role.permissions.includes("roles_view"))
         li
           a(href=`${prefixAdmin}/roles`)
